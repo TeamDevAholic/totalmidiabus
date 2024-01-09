@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Remove a rota padrão
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+ 
 
 Auth::routes();
 
