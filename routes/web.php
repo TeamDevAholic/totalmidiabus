@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- 
+
 
 Auth::routes();
 
@@ -34,3 +34,4 @@ Route::post('/actualizar_roles_users','App\Http\Controllers\adminController@actu
 Route::post('/salvar_permissions_roles','App\Http\Controllers\adminController@salvar_permissions_roles')->middleware('auth');
 Route::get('/login', 'App\Http\Controllers\adminController@login')->middleware('auth');
 Route::post('/criar_token_acesso', 'App\Http\Controllers\adminController@criar_token_acesso')->middleware('auth');
+
