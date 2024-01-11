@@ -24,7 +24,7 @@
                   <!-- Sign In Form -->
                   <!-- jQuery Validation (.js-validation-signin class is initialized in js/pages/op_auth_signin.min.js which was auto compiled from _js/pages/op_auth_signin.js) -->
                   <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                  <form class="js-validation-signin" action="/route" method="POST">
+                  <form class="js-validation-signin" action="/login" method="POST">
                     @csrf
                     <div class="mb-4">
                       <input type="email" class="form-control @error('email') is-invalid @enderror form-control-alt" id="login-username" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="E-mail">
