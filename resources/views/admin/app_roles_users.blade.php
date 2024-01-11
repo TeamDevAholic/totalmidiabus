@@ -8,7 +8,6 @@
 <!-- Toastr JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
 <br><br>
 <br>
             <div class="card">

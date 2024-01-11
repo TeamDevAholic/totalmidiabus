@@ -32,7 +32,7 @@
 
     <table class="table table-striped table-bordered">
 
-      <thead> 
+      <thead>
         <tr>
           <th>Perfil {{$role_id}}</th>
         </tr>
@@ -114,10 +114,10 @@
     </tr>
     <tr>
         <th scope="row"><span><i class="fa fa-file"></i></span> Logs</th>
-        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_relatorios", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_relatorios"></td>
-        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_relatorios", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_relatorios"></td>
-        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_relatorios", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_relatorios"></td>
-        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_relatorios", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_relatorios"></td>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_logs", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_logs"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_logs", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_logs"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_logs", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_logs"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_logs", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_logs"></td>
     </tr>
 
 

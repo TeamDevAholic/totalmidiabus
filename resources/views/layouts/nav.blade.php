@@ -204,13 +204,17 @@
               </li>
             </ul>
           </li>
-          <li class="nav-main-heading">LOGS</li>
+          
+          @can('pode_visualizar_logs')
+            <li class="nav-main-heading">LOGS</li>
           <li class="nav-main-item">
             <a class="nav-main-link" href="/listar_logs">
               <i class="nav-main-link-icon fa fa-wrench"></i>
               <span class="nav-main-link-name">Listar logs</span>
             </a>
           </li>
+          @endcan
+
         </ul>
       </div>
       <!-- END Side Navigation -->
