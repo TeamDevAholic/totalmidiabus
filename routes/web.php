@@ -35,3 +35,12 @@ Route::post('/salvar_permissions_roles','App\Http\Controllers\adminController@sa
 Route::get('/login', 'App\Http\Controllers\adminController@login')->middleware('auth');
 Route::post('/criar_token_acesso', 'App\Http\Controllers\adminController@criar_token_acesso')->middleware('auth');
 
+
+
+Route::get('/clientes', 'App\Http\Controllers\clientesController@index')->middleware('auth');
+Route::get('/registar_cliente', 'App\Http\Controllers\clientesController@create')->middleware('auth');
+Route::get('/editar_cliente/{id}', 'App\Http\Controllers\clientesController@edit')->middleware('auth');
+Route::get('/visualizar_cliente/{id}', 'App\Http\Controllers\clientesController@show')->middleware('auth');
+Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\clientesController@destroy')->middleware('auth');
+Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\clientesController@update')->middleware('auth');
+Route::post('/salvar_cliente', 'App\Http\Controllers\clientesController@store')->middleware('auth');
