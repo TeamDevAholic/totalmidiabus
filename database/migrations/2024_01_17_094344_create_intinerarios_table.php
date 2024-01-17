@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('empresas', function (Blueprint $table) {
+        Schema::create('intinerarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
-            $table->string('logomarca', 100)->nullable();
-            $table->text('descricao');
+            $table->string('nome', 50);
+            $table->integer('linha_id')->unsigned();
             $table->timestamps();
 
+            $table->foreign('linha_id')
+                ->references('id')
+                ->on('linhas');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('empresas');
+        Schema::dropIfExists('intinerarios');
     }
 };

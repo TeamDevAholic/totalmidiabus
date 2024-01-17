@@ -11,20 +11,20 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
-            $table->string('data_nascimento');
-            $table->string('cpf')->unique();
-            $table->string('rg');
-            $table->string('email');
-            $table->string('whatsapp');
-            $table->string('genero');
-            $table->string('cep');
-            $table->string('rua');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('uf');
-            $table->string('numero')->nullable();
-            $table->string('complemento')->nullable();
+            $table->string('nome', 50);
+            $table->date('data_nascimento');
+            $table->string('cpf', 20)->unique();
+            $table->string('rg', 20);
+            $table->string('email', 50);
+            $table->string('whatsapp', 20);
+            $table->string('genero', 20);
+            $table->string('cep', 20);
+            $table->string('rua', 50);
+            $table->string('bairro', 50);
+            $table->string('cidade', 50);
+            $table->string('uf', 20);
+            $table->string('numero', 50)->nullable();
+            $table->string('complemento', 50)->nullable();
             $table->timestamps();
             $table->bigInteger('criado_por')->unsigned();
             $table->foreign('criado_por')->references('id')->on('users');

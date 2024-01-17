@@ -6,36 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('numero_pi');
-            $table->integer('qtd_parcelas');
-            $table->date('inicio_campanha');
-            $table->string('anexo_pdf');
-            $table->integer('numero_nf');
-            $table->string('valor_bruto');
-            $table->string('valor_imposto');
-            $table->string('valor_depositado');
-            $table->string('data_vencimento');
-            $table->string('data_pagamento');
-            $table->string('vendedor');
-            $table->string('custos');
-            $table->text('explicacao');
-            $table->string('pagamento_colagem');
-            $table->string('pagamento_garagem');
-            $table->string('fotos_comprovacao');
+            $table->text('lista_produtos');
+            $table->integer('numero_pi')->nullable();
+            $table->integer('qtd_parcelas')->nullable();
+            $table->date('inicio_campanha')->nullable();
+            $table->string('anexo_pdf', 100)->nullable();
+            $table->string('numero_nf', 20)->nullable();
+            $table->string('valor_bruto', 20)->nullable();
+            $table->string('valor_imposto', 20)->nullable();
+            $table->string('valor_depositado', 20)->nullable();
+            $table->string('pagamento_colagem')->nullable();
+            $table->string('pagamento_garagem')->nullable();
+            $table->string('fotos_comprovacao')->nullable();
+            $table->string('fluxo')->default('vendedor');
+            $table->string('status')->default('orçamento');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('vendas');
