@@ -88,6 +88,20 @@
         <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_orcamento", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_orcamento"></td>
         <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_orcamento", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_orcamento"></td>
     </tr>
+    <tr>
+        <th scope="row"><span><i class="fa fa-coins"></i> </span> Vendas </th>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_vendas", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_vendas"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_vendas", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_vendas"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_vendas", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_vendas"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_vendas", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_vendas"></td>
+    </tr>
+    <tr>
+        <th scope="row"><span><i class="fa fa-users"></i> </span> Linhas </th>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_linhas", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_linhas"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_linhas", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_linhas"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_linhas", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_linhas"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_linhas", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_linhas"></td>
+    </tr>
 
     <tr>
         <th scope="row"><span><i class="fa fa-user-plus"></i></span> Cadastro pi/venda </th>
@@ -111,6 +125,20 @@
         <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_relatorios", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_relatorios"></td>
         <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_relatorios", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_relatorios"></td>
         <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_relatorios", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_relatorios"></td>
+    </tr>
+    <tr>
+        <th scope="row"><span><i class="fa fa-phone"></i> </span> Contatos</th>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_contatos", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_contatos"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_contatos", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_contatos"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_contatos", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_contatos"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_contatos", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_contatos"></td>
+    </tr>
+    <tr>
+        <th scope="row"><span><i class="fa fa-home"></i> </span> Empresas</th>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_empresas", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_empresas"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_empresas", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_empresas"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_empresas", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_empresas"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_empresas", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_empresas"></td>
     </tr>
     <tr>
         <th scope="row"><span><i class="fa fa-file"></i></span> Logs</th>
@@ -157,3 +185,4 @@
 </script>
 
 @endsection
+

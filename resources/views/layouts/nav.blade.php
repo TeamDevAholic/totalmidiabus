@@ -49,13 +49,14 @@
       <div class="content-side">
         <ul class="nav-main">
           <li class="nav-main-item">
-            <a class="nav-main-link" href="be_pages_dashboard.html">
+            <a class="nav-main-link" href="/">
               <i class="nav-main-link-icon fa fa-location-arrow"></i>
               <span class="nav-main-link-name">Dashboard</span>
               <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>
             </a>
           </li>
 
+            @can('pode_visualizar_orcamento')
           <li class="nav-main-heading">GESTÃO</li>
           <li class="nav-main-item">
             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
@@ -69,56 +70,82 @@
                   <span class="nav-main-link-name">Listar orçamentos</span>
                 </a>
               </li>
-              <li class="nav-main-item">
+              @can('pode_registrar_orcamento')
+            <li class="nav-main-item">
                 <a class="nav-main-link" href="/buscar_linhas">
                   <span class="nav-main-link-name">Buscar linhas</span>
                 </a>
               </li>
+              @endcan
+
             </ul>
+            @endcan
+
+
           </li>
-          <li class="nav-main-item">
+          @can('pode_visualizar_cadastro_pi_venda')
+            <li class="nav-main-item">
+            @can('pode_registrar_cadastro_pi_venda')
             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
               <i class="nav-main-link-icon fa fa-boxes"></i>
               <span class="nav-main-link-name">Cadastro pi/venda
             </span>
             </a>
+            @endcan
+            @can('pode_visualizar_vendas')
             <ul class="nav-main-submenu">
               <li class="nav-main-item">
                 <a class="nav-main-link" href="/listar_vendas">
                   <span class="nav-main-link-name">Listar vendas</span>
                 </a>
               </li>
-              <li class="nav-main-item">
+              @can('pode_registrar_vendas')
+                <li class="nav-main-item">
                 <a class="nav-main-link" href="/cadastrar_vendas">
                   <span class="nav-main-link-name">Cadastrar</span>
                 </a>
               </li>
+              @endcan
+
             </ul>
+            @endcan
+
           </li>
-          <li class="nav-main-item">
+          @endcan
+
+          @can('pode_visualizar_garagem')
+ <li class="nav-main-item">
             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
               <i class="nav-main-link-icon fa fa-vector-square"></i>
               <span class="nav-main-link-name">Garagem
             </span>
             </a>
+                    @can('pode_visualizar_empresas')
             <ul class="nav-main-submenu">
               <li class="nav-main-item">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                   <span class="nav-main-link-name">Empresas</span>
                 </a>
                 <ul class="nav-main-submenu">
-                    <li class="nav-main-item">
+
+                      <li class="nav-main-item">
                       <a class="nav-main-link" href="/listar_empresas_logomarca">
                         <span class="nav-main-link-name">Listar empresas logomarca</span>
                       </a>
                     </li>
+                    @endcan
+
+                    @can('pode_registrar_empresas')
                     <li class="nav-main-item">
                       <a class="nav-main-link" href="/cadastrar_empresas_logomarca">
                         <span class="nav-main-link-name">Cadastrar empresas logomarca</span>
                       </a>
                     </li>
+                    @endcan
+
                 </ul>
               </li>
+                    @can('pode_visualizar_linhas')
               <li class="nav-main-item">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                   <span class="nav-main-link-name">Linhas</span>
@@ -129,14 +156,22 @@
                         <span class="nav-main-link-name">Listar linhas</span>
                       </a>
                     </li>
+                    @endcan
+
+
+                    @can('pode_registrar_linhas')
                     <li class="nav-main-item">
                       <a class="nav-main-link" href="/cadastrar_linhas">
                         <span class="nav-main-link-name">Cadastrar linhas</span>
                       </a>
                     </li>
+                    @endcan
+
                 </ul>
               </li>
-              <li class="nav-main-item">
+
+              @can('pode_visualizar_contatos')
+                <li class="nav-main-item">
                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                   <span class="nav-main-link-name">Contatos</span>
                 </a>
@@ -146,18 +181,22 @@
                         <span class="nav-main-link-name">Listar contatos</span>
                       </a>
                     </li>
+              @endcan
+              @can('pode_registrar_contatos')
                     <li class="nav-main-item">
                       <a class="nav-main-link" href="/cadastrar_contatos">
                         <span class="nav-main-link-name">Cadastrar contatos</span>
                       </a>
                     </li>
+              @endcan
                 </ul>
               </li>
-
-
             </ul>
           </li>
-          <li class="nav-main-heading">RELATÓRIOS
+          @endcan
+
+          @can('pode_visualizar_relatorios')
+  <li class="nav-main-heading">RELATÓRIOS
         </li>
           <li class="nav-main-item">
             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
@@ -204,7 +243,9 @@
               </li>
             </ul>
           </li>
-          
+          @endcan
+
+
           @can('pode_visualizar_logs')
             <li class="nav-main-heading">LOGS</li>
           <li class="nav-main-item">
