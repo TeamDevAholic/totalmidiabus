@@ -66,7 +66,7 @@
             </a>
             <ul class="nav-main-submenu">
               <li class="nav-main-item">
-                <a class="nav-main-link" href="/listar_orcamento">
+                <a class="nav-main-link" href="/orcamentos">
                   <span class="nav-main-link-name">Listar orçamentos</span>
                 </a>
               </li>
@@ -123,7 +123,7 @@
           @endcan
 
           @can('pode_visualizar_garagem')
- <li class="nav-main-item">
+            <li class="nav-main-item">
             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
               <i class="nav-main-link-icon fa fa-vector-square"></i>
               <span class="nav-main-link-name">Garagem

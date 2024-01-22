@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\OrcamentosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,7 +35,7 @@ Route::post('/salvar_permissions_roles','App\Http\Controllers\adminController@sa
 Route::get('/login', 'App\Http\Controllers\adminController@login')->middleware('auth');
 Route::post('/criar_token_acesso', 'App\Http\Controllers\adminController@criar_token_acesso')->middleware('auth');
 
-
+// ========================= CLIENTES ========================
 
 Route::get('/clientes', 'App\Http\Controllers\clientesController@index')->middleware('auth');
 Route::get('/registar_cliente', 'App\Http\Controllers\clientesController@create')->middleware('auth');
@@ -44,3 +44,13 @@ Route::get('/visualizar_cliente/{id}', 'App\Http\Controllers\clientesController@
 Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\clientesController@destroy')->middleware('auth');
 Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\clientesController@update')->middleware('auth');
 Route::post('/salvar_cliente', 'App\Http\Controllers\clientesController@store')->middleware('auth');
+
+// ========================= ORÇAMENTOS ========================
+
+Route::get('/orcamentos', 'App\Http\Controllers\OrcamentosController@index')->middleware('auth');
+Route::get('/registar_orcamento', 'App\Http\Controllers\OrcamentosController@create')->middleware('auth');
+Route::get('/editar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@edit')->middleware('auth');
+Route::get('/visualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@show')->middleware('auth');
+Route::get('/eliminar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@destroy')->middleware('auth');
+Route::post('/actualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@update')->middleware('auth');
+Route::post('/salvar_orcamento', 'App\Http\Controllers\OrcamentosController@store')->middleware('auth');
