@@ -52,7 +52,7 @@
   <body>
     <!-- Page Container -->
 
-    {{-- @include('sweetalert::alert') --}}
+    @include('sweetalert::alert')
 
 <div id="page-container" class="sidebar-o side-scroll page-header-fixed page-header-dark">
 
