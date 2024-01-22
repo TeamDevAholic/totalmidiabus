@@ -26,6 +26,7 @@ class CreateClientesTable extends Migration
             $table->string('numero', 50)->nullable();
             $table->string('complemento', 50)->nullable();
             $table->timestamps();
+            
             $table->bigInteger('criado_por')->unsigned();
             $table->foreign('criado_por')->references('id')->on('users');
             $table->bigInteger('actualizado_por')->unsigned();

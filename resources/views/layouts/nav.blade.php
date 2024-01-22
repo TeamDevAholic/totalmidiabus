@@ -78,9 +78,18 @@
               </li>
               @endcan
 
+
             </ul>
             @endcan
-
+                    @can('pode_visualizar_clientes')
+                    <li class="nav-main-item">
+                        <a class="nav-main-link" href="/clientes">
+                        <i class="nav-main-link-icon fa fa-users"></i>
+                        <span class="nav-main-link-name">Clientes
+                        </span>
+                        </a>
+                    @endcan
+                    </li>
 
           </li>
           @can('pode_visualizar_cadastro_pi_venda')

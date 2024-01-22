@@ -61,7 +61,7 @@ class clientesController extends Controller
         $cliente->save();
 
         // redirecionar para a página inicial
-        // Alert::toast('cliente Registado Com Sucesso', 'success');
+        Alert::toast('cliente Registado Com Sucesso', 'success');
 
         if (isset($request->check_marcar_consulta)) {
             return redirect('/registar_consulta_por_cliente/'.$cliente->id);

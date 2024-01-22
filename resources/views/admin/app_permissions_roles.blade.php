@@ -141,6 +141,13 @@
         <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_empresas", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_empresas"></td>
     </tr>
     <tr>
+        <th scope="row"><span><i class="fa fa-home"></i> </span> Clientes</th>
+        <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_clientes", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_clientes"></td>
+        <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_clientes", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_clientes"></td>
+        <td><input class="form-check-input" type="checkbox" id="edicao" name="edicao[]" {{ in_array("pode_editar_clientes", old('edicao', $selected)) ? 'checked' : '' }} value="pode_editar_clientes"></td>
+        <td><input class="form-check-input" type="checkbox" id="exclusao" name="exclusao[]" {{ in_array("pode_eliminar_clientes", old('exclusao', $selected)) ? 'checked' : '' }} value="pode_eliminar_clientes"></td>
+    </tr>
+    <tr>
         <th scope="row"><span><i class="fa fa-file"></i></span> Logs</th>
         <td><input class="form-check-input" type="checkbox" id="visualizacao" name="visualizacao[]" {{ in_array("pode_visualizar_logs", old('visualizacao', $selected)) ? 'checked' : '' }} value="pode_visualizar_logs"></td>
         <td><input class="form-check-input" type="checkbox" id="inclusao" name="inclusao[]" {{ in_array("pode_registrar_logs", old('inclusao', $selected)) ? 'checked' : '' }} value="pode_registrar_logs"></td>

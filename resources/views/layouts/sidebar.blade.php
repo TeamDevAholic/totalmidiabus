@@ -142,10 +142,6 @@
     <script src="{{asset('js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js')}}"></script>
     <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
     <script src="{{asset('js/plugins/chart.js/chart.min.js')}}"></script>
-
-    <!-- Page JS Code -->
-    <script src="{{asset('js/pages/be_pages_ecom_dashboard.min.js')}}"></script>
-
     <script>
       $(document).ready(function() {
         $('.js-select2').select2();
