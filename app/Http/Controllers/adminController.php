@@ -522,7 +522,7 @@ class adminController extends Controller
             }
         }
 
-        Alert::toast('Alteração efetuada Com Sucesso', 'success');
+        // Alert::toast('Alteração efetuada Com Sucesso', 'success');
         return back();
     }
 
@@ -535,7 +535,7 @@ class adminController extends Controller
 
         $roles->save();
 
-        Alert::toast('Alteração efetuada Com Sucesso', 'success');
+        // Alert::toast('Alteração efetuada Com Sucesso', 'success');
         return $roles;
     }
 
