@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrcamentosController;
+use App\Http\Controllers\EmpresasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,3 +55,13 @@ Route::get('/visualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosControl
 Route::get('/eliminar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@destroy')->middleware('auth');
 Route::post('/actualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@update')->middleware('auth');
 Route::post('/salvar_orcamento', 'App\Http\Controllers\OrcamentosController@store')->middleware('auth');
+
+// ========================= EMPRESAS ========================
+
+Route::get('/empresas', 'App\Http\Controllers\EmpresasController@index')->middleware('auth');
+Route::get('/registar_empresa', 'App\Http\Controllers\EmpresasController@create')->middleware('auth');
+Route::get('/editar_empresa/{id}', 'App\Http\Controllers\EmpresasController@edit')->middleware('auth');
+Route::get('/visualizar_empresa/{id}', 'App\Http\Controllers\EmpresasController@show')->middleware('auth');
+Route::get('/eliminar_empresa/{id}', 'App\Http\Controllers\EmpresasController@destroy')->middleware('auth');
+Route::post('/actualizar_empresa/{id}', 'App\Http\Controllers\EmpresasController@update')->middleware('auth');
+Route::post('/salvar_empresa', 'App\Http\Controllers\EmpresasController@store')->middleware('auth');

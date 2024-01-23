@@ -6,6 +6,8 @@ use App\Models\Orcamentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
+use App\Models\Clientes; // Certifique-se de importar o modelo Cliente no início do seu arquivo
+
 class OrcamentosController extends Controller
 {
     /**
@@ -34,18 +36,27 @@ class OrcamentosController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $orcamentos = new Orcamentos;
-        $orcamentos->cliente_id = $request->cliente_id;
-        $orcamentos->nome_campanha = $request->nome_campanha;
-        $orcamentos->save();
+    // Verifique se há um cliente correspondente ao usuário autenticado
+    $cliente = Clientes::find($user->id);
 
-        Alert::toast('Orçamento cadastrado com sucesso', 'success');
-        return redirect('/orcamentos');
+    if (!$cliente) {
+        // Se não houver cliente correspondente, você pode tratar isso de acordo com a lógica do seu aplicativo
+        // Por exemplo, lançar uma exceção, redirecionar para uma página de erro, etc.
+        // Aqui, eu estou lançando uma exceção como exemplo:
+        throw new \Exception('Cliente não encontrado para o usuário autenticado.');
     }
+
+    $orcamento = new Orcamentos;
+    $orcamento->cliente_id = $cliente->id;
+    $orcamento->nome_campanha = $request->nome_campanha;
+    $orcamento->save();
+
+    Alert::toast('Orçamento cadastrado com sucesso', 'success');
+    return redirect('/orcamentos');
+}
 
     /**
      * Display the specified resource.

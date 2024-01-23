@@ -138,16 +138,16 @@
                 <ul class="nav-main-submenu">
 
                       <li class="nav-main-item">
-                      <a class="nav-main-link" href="/listar_empresas_logomarca">
-                        <span class="nav-main-link-name">Listar empresas logomarca</span>
+                      <a class="nav-main-link" href="/empresas">
+                        <span class="nav-main-link-name">Listar empresas</span>
                       </a>
                     </li>
                     @endcan
 
                     @can('pode_registrar_empresas')
                     <li class="nav-main-item">
-                      <a class="nav-main-link" href="/cadastrar_empresas_logomarca">
-                        <span class="nav-main-link-name">Cadastrar empresas logomarca</span>
+                      <a class="nav-main-link" href="/registar_empresa">
+                        <span class="nav-main-link-name">Cadastrar empresas</span>
                       </a>
                     </li>
                     @endcan
