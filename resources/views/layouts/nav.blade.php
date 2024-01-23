@@ -181,9 +181,12 @@
 
               @can('pode_visualizar_contatos')
                 <li class="nav-main-item">
-                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                  <span class="nav-main-link-name">Contatos</span>
+                <a class="nav-main-link" href="/itinerarios">
+                  <span class="nav-main-link-name">Itinerários</span>
                 </a>
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                    <span class="nav-main-link-name">Contatos</span>
+                  </a>
                 <ul class="nav-main-submenu">
                     <li class="nav-main-item">
                       <a class="nav-main-link" href="/listar_contatos">

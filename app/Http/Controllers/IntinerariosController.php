@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Intinerarios;
 use Illuminate\Http\Request;
 use App\Models\Logs;
+use App\Models\Linhas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Alert;
+use Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -17,12 +18,13 @@ class IntinerariosController extends Controller
     {
         $itinerarios = Intinerarios::all();
 
-        return view('conteudos.itinerarios.app_itinerarios', compact('itinerarios'));
+        return view('conteudos.garagem.itinerarios.app_itinerarios', compact('itinerarios'));
     }
 
     public function create()
     {
-        return view('conteudos.itinerarios.app_registar_itinerario');
+        $linhas = Linhas::all();
+        return view('conteudos.garagem.itinerarios.app_registar_itinerario', compact('linhas'));
     }
 
     public function store(Request $request)
@@ -46,15 +48,16 @@ class IntinerariosController extends Controller
     public function show($id)
     {
         $itinerario = Intinerarios::find($id);
-
-        return view('conteudos.itinerarios.app_visualizar_itinerario', compact('itinerario'));
+        $linhas = Linhas::all();
+        return view('conteudos.garagem.itinerarios.app_visualizar_itinerario', compact('itinerario','linhas'));
     }
 
     public function edit($id)
     {
         $itinerario = Intinerarios::find($id);
+        $linhas = Linhas::all();
 
-        return view('conteudos.itinerarios.app_editar_itinerario', compact('itinerario'));
+        return view('conteudos.garagem.itinerarios.app_editar_itinerario', compact('itinerario','linhas'));
     }
 
     public function update(Request $request, $id)
