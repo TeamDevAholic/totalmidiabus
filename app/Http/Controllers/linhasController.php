@@ -8,7 +8,7 @@ use App\Models\Linhas;
 use App\Models\Logs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Alert;
+use Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -18,12 +18,12 @@ class linhasController extends Controller
     {
         $linhas = Linhas::all();
 
-        return view('conteudos.linhas.app_linhas', compact('linhas'));
+        return view('conteudos.garagem.linhas.app_linhas', compact('linhas'));
     }
 
     public function create()
     {
-        return view('conteudos.linhas.app_registar_linha');
+        return view('conteudos.garagem.linhas.app_registar_linha');
     }
 
     public function store(Request $request)
@@ -50,14 +50,14 @@ class linhasController extends Controller
     {
         $linha = Linhas::find($id);
 
-        return view('conteudos.linhas.app_visualizar_linha', compact('linha'));
+        return view('conteudos.garagem.linhas.app_visualizar_linha', compact('linha'));
     }
 
     public function edit($id)
     {
         $linha = Linhas::find($id);
 
-        return view('conteudos.linhas.app_editar_linha', compact('linha'));
+        return view('conteudos.garagem.linhas.app_editar_linha', compact('linha'));
     }
 
     public function update(Request $request, $id)

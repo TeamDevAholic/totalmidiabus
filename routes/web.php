@@ -83,7 +83,7 @@ Route::post('/actualizar_produto/{id}', 'App\Http\Controllers\ProdutosController
 Route::post('/salvar_produto', 'App\Http\Controllers\ProdutosController@store')->middleware('auth');
 
 
-Route::get('/itens-vendas', 'App\Http\Controllers\ItensVendasController@index')->middleware('auth');
+Route::get('/itens_vendas', 'App\Http\Controllers\ItensVendasController@index')->middleware('auth');
 Route::get('/registar_item_venda', 'App\Http\Controllers\ItensVendasController@create')->middleware('auth');
 Route::get('/editar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@edit')->middleware('auth');
 Route::get('/visualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@show')->middleware('auth');

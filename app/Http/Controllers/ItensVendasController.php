@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use App\Models\Orcamentos;
+use App\Models\Produtos;
+use App\Models\Vendas;
 
 class ItensVendasController extends Controller
 {
@@ -17,12 +20,15 @@ class ItensVendasController extends Controller
     {
         $itensVendas = ItensVendas::all();
 
-        return view('conteudos.itens_vendas.app_itens_vendas', compact('itensVendas'));
+        return view('conteudos.garagem.itens_vendas.app_itens_vendas', compact('itensVendas'));
     }
 
     public function create()
     {
-        return view('conteudos.itens_vendas.app_registar_item_venda');
+        $orcamento = Orcamentos::all();
+        $venda = Vendas::all();
+        $produto = Produtos::all();
+        return view('conteudos.garagem.itens_vendas.app_registar_item_venda', compact('orcamento','venda','produto',));
     }
 
     public function store(Request $request)
@@ -47,21 +53,21 @@ class ItensVendasController extends Controller
         $user_logado = Auth::user();
         $this->registarLog("Um novo item de venda com o id {$itemVenda->id} foi criado com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
-        return redirect('/itens-vendas');
+        return redirect('/itens_vendas');
     }
 
     public function show($id)
     {
         $itemVenda = ItensVendas::find($id);
 
-        return view('conteudos.itens_vendas.app_visualizar_item_venda', compact('itemVenda'));
+        return view('conteudos.garagem.itens_vendas.app_visualizar_item_venda', compact('itemVenda'));
     }
 
     public function edit($id)
     {
         $itemVenda = ItensVendas::find($id);
 
-        return view('conteudos.itens_vendas.app_editar_item_venda', compact('itemVenda'));
+        return view('conteudos.garagem.itens_vendas.app_editar_item_venda', compact('itemVenda'));
     }
 
     public function update(Request $request, $id)
@@ -86,7 +92,7 @@ class ItensVendasController extends Controller
 
         Alert::toast('Registro Atualizado Com Sucesso', 'success');
 
-        return redirect('/itens-vendas');
+        return redirect('/itens_vendas');
     }
 
     public function destroy($id)
@@ -94,7 +100,7 @@ class ItensVendasController extends Controller
         ItensVendas::destroy($id);
         Alert::toast('Registro Eliminado Com Sucesso', 'success');
 
-        return redirect('/itens-vendas');
+        return redirect('/itens_vendas');
     }
 
     public function pesquisar()
