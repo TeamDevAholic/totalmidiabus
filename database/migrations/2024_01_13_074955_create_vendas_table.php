@@ -9,6 +9,7 @@ return new class extends Migration
 
     public function up(): void
     {
+        
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
             $table->text('lista_produtos');
