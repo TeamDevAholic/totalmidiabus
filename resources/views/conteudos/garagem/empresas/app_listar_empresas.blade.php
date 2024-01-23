@@ -18,7 +18,6 @@
           <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
               <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Empresas</h1>
-
             </div>
           </div>
         </div>
@@ -26,8 +25,8 @@
 
         <!-- Page Content -->
         <div class="content">
-            @if ($clientes->isNotEmpty())
-            <a style="margin-bottom: 10px;" href="/registar_cliente" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
+            @if ($empresas->isNotEmpty())
+            <a style="margin-bottom: 10px;" href="/registar_empresa" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
 
             <div class="col-md-12">
                 <div class="block block-themed">
@@ -42,31 +41,36 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" style="width: 50px;">#</th>
-                                    <th>Nome</th>
-                                    <th>CPF</th>
-                                    <th>RG</th>
-                                    <th>WhatsApp</th>
-                                    <th>CEP</th>
+                                    <th>Nome da empresa</th>
+                                    <th>Logomarca</th>
+                                    <th>Descrição</th>
                                     <th class="text-center" style="width: 100px;">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clientes as $item)
+                                @foreach ($empresas as $item)
                                 <tr>
                                     <th class="text-center" scope="row">{{ $item->id }}</th>
                                     <td class="fw-semibold">
-                                        <a href="/visualizar_cliente/{{$item->id}}">{{$item->nome}}</a>
+                                        <a href="/visualizar_empresa/{{$item->id}}">{{$item->nome}}</a>
                                     </td>
-                                    <td>{{$item->cpf}}</td>
-                                    <td>{{$item->rg}}</td>
-                                    <td>{{$item->rg}}</td>
-                                    <td>{{$item->cep}}</td>
+                                    <td>
+                                        @if ($item->logomarca)
+                                     <a href="{{$item->logomarca}}">
+                                        <img src="{{$item->logomarca}}" alt="user-avatar" class="img-thumbnail rounded-circle" style="width: 50px; height: 50px;">
+                                    </a>
+                                        @else
+                                            <p class="text-danger">Nenhuma logomarca disponível.</p>
+                                        @endif
+                                    </td>
+
+                                    <td>{{$item->descricao}}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a href="/visualizar_cliente/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">
+                                            <a href="/visualizar_empresa/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar cliente" onclick="confirmarApagar({{$item->id}})">
+                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar empresa" onclick="confirmarApagar({{$item->id}})">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </div>
@@ -82,19 +86,19 @@
             @else
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <h3 class="alert-heading fs-4 my-2">Desculpe!</h3>
-                <p class="mb-0">Não existe nenhum cliente cadastrado no sistema!</p>
+                <p class="mb-0">Não existe nenhuma empresa cadastrada no sistema!</p>
               </div>
-              <a href="/registar_cliente" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
+              <a href="/registar_empresa" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
             @endif
 
         </div>
       </main>
 <!-- Adicione o seguinte script para definir a função confirmarApagar -->
 <script>
-    function confirmarApagar(clienteId) {
+    function confirmarApagar(empresaId) {
         Swal.fire({
             title: 'Confirmar Ação',
-            text: 'Tem certeza de que deseja apagar este cliente?',
+            text: 'Tem certeza de que deseja apagar esta empresa?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -102,7 +106,7 @@
             confirmButtonText: 'Sim, Apagar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminar_cliente/" + clienteId;
+                window.location.href = "/eliminar_empresa/" + empresaId;
             }
         });
     }

@@ -7,32 +7,47 @@ use App\Models\Empresas;
 use App\Models\Logs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Alert;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-
+use Alert;
 class EmpresasController extends Controller
 {
     public function index()
     {
         $empresas = Empresas::all();
 
-        return view('conteudos.empresas.app_empresas', compact('empresas'));
+        return view('conteudos.garagem.empresas.app_listar_empresas', compact('empresas'));
     }
 
     public function create()
     {
-        return view('conteudos.empresas.app_registar_empresa');
+        return view('conteudos.garagem.empresas.app_registar_empresa');
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
-
         $empresa = new Empresas;
         $empresa->nome = $request->nome;
         $empresa->logomarca = $request->logomarca;
         $empresa->descricao = $request->descricao;
+
+
+        if ($request->logomarca) {
+            $logomarca = $request->logomarca;
+            $extensaoI =  $logomarca->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
+        $empresa->save();
+
+        if ($request->logomarca) {
+                    File::move($logomarca, public_path().'/media/empresas/imag_'.$empresa->id.'.'.$extensaoI);
+                    $empresa->logomarca = '/media/empresas/imag_'.$empresa->id.'.'.$extensaoI;
+                    $empresa->save();
+                }
 
         $empresa->save();
 
@@ -48,14 +63,14 @@ class EmpresasController extends Controller
     {
         $empresa = Empresas::find($id);
 
-        return view('conteudos.empresas.app_visualizar_empresa', compact('empresa'));
+        return view('conteudos.garagem.empresas.app_visualizar_empresa', compact('empresa'));
     }
 
     public function edit($id)
     {
         $empresa = Empresas::find($id);
 
-        return view('conteudos.empresas.app_editar_empresa', compact('empresa'));
+        return view('conteudos.garagem.empresas.app_editar_empresa', compact('empresa'));
     }
 
     public function update(Request $request, $id)
@@ -67,6 +82,20 @@ class EmpresasController extends Controller
         $empresa->logomarca = $request->logomarca;
         $empresa->descricao = $request->descricao;
 
+        if ($request->logomarca) {
+            $logomarca = $request->logomarca;
+            $extensaoI =  $logomarca->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
+        $empresa->save();
+
+        if ($request->logomarca) {
+                    File::move($logomarca, public_path().'/media/empresas/imag_'.$empresa->id.'.'.$extensaoI);
+                    $empresa->logomarca = '/media/empresas/imag_'.$empresa->id.'.'.$extensaoI;
+                    $empresa->save();
+                }
         $empresa->save();
 
         $user_logado = Auth::user();
