@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 use File;
 use Illuminate\Support\Facades\Auth;
 use Alert;
-
-
+use App\Models\Logs;
 
 class clientesController extends Controller
 {
@@ -68,6 +67,9 @@ class clientesController extends Controller
          }
 
 
+         $user_logado = Auth::user();
+         $this->registarLog("Um novo cliente com o id {$cliente->id}, e nome {$cliente->nome} foi criado com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
         return redirect('/clientes');
 
     }
@@ -109,6 +111,10 @@ class clientesController extends Controller
 
         $cliente->save();
 
+        $user_logado = Auth::user();
+         $this->registarLog("O cliente com o id {$cliente->id}, e nome {$cliente->nome} foi editado com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+
         // redirecionar para a página inicial
         Alert::toast('Registo Actualizado Com Sucesso', 'success');
 
@@ -131,5 +137,12 @@ class clientesController extends Controller
         return 'A página está a ser trabalhada...';
 
         return redirect('/clientes');
+    }
+
+    public function registarLog($descricao, $user_id){
+        $log = new Logs();
+        $log->descricao = $descricao;
+        $log->usuario_id = $user_id;
+        $log->save();
     }
 }
