@@ -81,6 +81,13 @@
 
             </ul>
             @endcan
+            <li class="nav-main-item">
+                <a class="nav-main-link" href="/produtos">
+                <i class="nav-main-link-icon fa fa-produt"></i>
+                <span class="nav-main-link-name">Produtos
+                </span>
+                </a>
+            </li>
             @can('pode_visualizar_clientes')
             <li class="nav-main-item">
                 <a class="nav-main-link" href="/clientes">
@@ -88,8 +95,8 @@
                 <span class="nav-main-link-name">Clientes
                 </span>
                 </a>
-            @endcan
             </li>
+            @endcan
             <li class="nav-main-item">
                 <a class="nav-main-link" href="/vendas">
                 <i class="nav-main-link-icon fa fa-box"></i>
