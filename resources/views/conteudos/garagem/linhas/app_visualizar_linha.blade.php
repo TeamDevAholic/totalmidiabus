@@ -52,9 +52,9 @@
             @endif
           </div>
 
-          <h3 class="profile-username text-center">{{ $linha->orcamento_id }}</h3>
+          <h3 class="profile-username text-center">{{ $linha->numero_linha }}</h3>
 
-          <p class="text-muted text-center">{{ $linha->venda_id }}</p>
+          <p class="text-muted text-center">{{ $linha->nome }}</p>
 
           <a href="/editar_item_venda/{{$linha->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
         </div>
