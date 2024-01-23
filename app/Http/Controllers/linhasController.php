@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Linhas;
 use App\Models\Logs;
+use App\Models\Empresas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Alert;
@@ -23,7 +24,8 @@ class linhasController extends Controller
 
     public function create()
     {
-        return view('conteudos.garagem.linhas.app_registar_linha');
+        $empresa = Empresas::all();
+        return view('conteudos.garagem.linhas.app_registar_linha', compact('empresa'));
     }
 
     public function store(Request $request)
