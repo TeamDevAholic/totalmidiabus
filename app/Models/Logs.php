@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Empresas extends Model
+class Logs extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['nome', 'logomarca', 'descricao'];
-    public $timestamps = true;
 }

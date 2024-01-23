@@ -45,6 +45,70 @@ Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\clientesController@de
 Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\clientesController@update')->middleware('auth');
 Route::post('/salvar_cliente', 'App\Http\Controllers\clientesController@store')->middleware('auth');
 
+
+Route::get('/linhas', 'App\Http\Controllers\linhasController@index')->middleware('auth');
+Route::get('/registar_linha', 'App\Http\Controllers\linhasController@create')->middleware('auth');
+Route::get('/editar_linha/{id}', 'App\Http\Controllers\linhasController@edit')->middleware('auth');
+Route::get('/visualizar_linha/{id}', 'App\Http\Controllers\linhasController@show')->middleware('auth');
+Route::get('/eliminar_linha/{id}', 'App\Http\Controllers\linhasController@destroy')->middleware('auth');
+Route::post('/actualizar_linha/{id}', 'App\Http\Controllers\linhasController@update')->middleware('auth');
+Route::post('/salvar_linha', 'App\Http\Controllers\linhasController@store')->middleware('auth');
+
+
+Route::get('/vendas', 'App\Http\Controllers\VendasController@index')->middleware('auth');
+Route::get('/registar_venda', 'App\Http\Controllers\VendasController@create')->middleware('auth');
+Route::get('/editar_venda/{id}', 'App\Http\Controllers\VendasController@edit')->middleware('auth');
+Route::get('/visualizar_venda/{id}', 'App\Http\Controllers\VendasController@show')->middleware('auth');
+Route::get('/eliminar_venda/{id}', 'App\Http\Controllers\VendasController@destroy')->middleware('auth');
+Route::post('/actualizar_venda/{id}', 'App\Http\Controllers\VendasController@update')->middleware('auth');
+Route::post('/salvar_venda', 'App\Http\Controllers\VendasController@store')->middleware('auth');
+
+
+Route::get('/empresas', 'App\Http\Controllers\EmpresasController@index')->middleware('auth');
+Route::get('/registar_empresa', 'App\Http\Controllers\EmpresasController@create')->middleware('auth');
+Route::get('/editar_empresa/{id}', 'App\Http\Controllers\EmpresasController@edit')->middleware('auth');
+Route::get('/visualizar_empresa/{id}', 'App\Http\Controllers\EmpresasController@show')->middleware('auth');
+Route::get('/eliminar_empresa/{id}', 'App\Http\Controllers\EmpresasController@destroy')->middleware('auth');
+Route::post('/actualizar_empresa/{id}', 'App\Http\Controllers\EmpresasController@update')->middleware('auth');
+Route::post('/salvar_empresa', 'App\Http\Controllers\EmpresasController@store')->middleware('auth');
+
+
+Route::get('/produtos', 'App\Http\Controllers\ProdutosController@index')->middleware('auth');
+Route::get('/registar_produto', 'App\Http\Controllers\ProdutosController@create')->middleware('auth');
+Route::get('/editar_produto/{id}', 'App\Http\Controllers\ProdutosController@edit')->middleware('auth');
+Route::get('/visualizar_produto/{id}', 'App\Http\Controllers\ProdutosController@show')->middleware('auth');
+Route::get('/eliminar_produto/{id}', 'App\Http\Controllers\ProdutosController@destroy')->middleware('auth');
+Route::post('/actualizar_produto/{id}', 'App\Http\Controllers\ProdutosController@update')->middleware('auth');
+Route::post('/salvar_produto', 'App\Http\Controllers\ProdutosController@store')->middleware('auth');
+
+
+Route::get('/itens-vendas', 'App\Http\Controllers\ItensVendasController@index')->middleware('auth');
+Route::get('/registar_item_venda', 'App\Http\Controllers\ItensVendasController@create')->middleware('auth');
+Route::get('/editar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@edit')->middleware('auth');
+Route::get('/visualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@show')->middleware('auth');
+Route::get('/eliminar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@destroy')->middleware('auth');
+Route::post('/actualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@update')->middleware('auth');
+Route::post('/salvar_item_venda', 'App\Http\Controllers\ItensVendasController@store')->middleware('auth');
+
+
+Route::get('/responsaveis', 'App\Http\Controllers\ResponsaveisController@index')->middleware('auth');
+Route::get('/registar_responsavel', 'App\Http\Controllers\ResponsaveisController@create')->middleware('auth');
+Route::get('/editar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@edit')->middleware('auth');
+Route::get('/visualizar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@show')->middleware('auth');
+Route::get('/eliminar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@destroy')->middleware('auth');
+Route::post('/actualizar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@update')->middleware('auth');
+Route::post('/salvar_responsavel', 'App\Http\Controllers\ResponsaveisController@store')->middleware('auth');
+
+
+Route::get('/itinerarios', 'App\Http\Controllers\IntinerariosController@index')->middleware('auth');
+Route::get('/registar_itinerario', 'App\Http\Controllers\IntinerariosController@create')->middleware('auth');
+Route::get('/editar_itinerario/{id}', 'App\Http\Controllers\IntinerariosController@edit')->middleware('auth');
+Route::get('/visualizar_itinerario/{id}', 'App\Http\Controllers\IntinerariosController@show')->middleware('auth');
+Route::get('/eliminar_itinerario/{id}', 'App\Http\Controllers\IntinerariosController@destroy')->middleware('auth');
+Route::post('/actualizar_itinerario/{id}', 'App\Http\Controllers\IntinerariosController@update')->middleware('auth');
+Route::post('/salvar_itinerario', 'App\Http\Controllers\IntinerariosController@store')->middleware('auth');
+
+
 // ========================= ORÇAMENTOS ========================
 
 Route::get('/orcamentos', 'App\Http\Controllers\OrcamentosController@index')->middleware('auth');
