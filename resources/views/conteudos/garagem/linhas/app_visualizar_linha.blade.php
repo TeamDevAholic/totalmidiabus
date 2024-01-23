@@ -18,14 +18,14 @@
 
   <div class="py-2">
     <h1 class="fw-bold text-dark  ">
-      {{$itemVenda->nome}}
+      {{$linha->nome}}
     </h1>
   </div>
   <div style=" margin-left:73%; margin-top: -5%;">
-    <a class="btn btn-hero btn-primary" href="/editar_item_venda/{{$itemVenda->id}}" data-toggle="click-ripple">
+    <a class="btn btn-hero btn-primary" href="/editar_item_venda/{{$linha->id}}" data-toggle="click-ripple">
       <i class="fa fa-pencil-alt"></i>
     </a>
-    <a class="btn btn-hero btn-primary" href="#" onclick="confirmarApagar({{$itemVenda->id}})" data-toggle="click-ripple">
+    <a class="btn btn-hero btn-primary" href="#" onclick="confirmarApagar({{$linha->id}})" data-toggle="click-ripple">
       <i class="fa fa-trash"></i>
   </a>
     <a class="btn  btn-hero btn-primary my-2" href="/itens_vendas">
@@ -40,10 +40,10 @@
       <div class="card card-primary card-outline">
         <div class="card-body box-profile">
           <div class="text-center">
-            @if ($itemVenda->logomarca)
+            @if ($linha->logomarca)
 
             <img class="profile-user-img img-fluid img-circle"
-                 src="{{ $itemVenda->logomarca }}"
+                 src="{{ $linha->logomarca }}"
                  alt="User profile picture">
             @else
             <img class="profile-user-img img-fluid img-circle"
@@ -52,11 +52,11 @@
             @endif
           </div>
 
-          <h3 class="profile-username text-center">{{ $itemVenda->orcamento_id }}</h3>
+          <h3 class="profile-username text-center">{{ $linha->orcamento_id }}</h3>
 
-          <p class="text-muted text-center">{{ $itemVenda->venda_id }}</p>
+          <p class="text-muted text-center">{{ $linha->venda_id }}</p>
 
-          <a href="/editar_item_venda/{{$itemVenda->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
+          <a href="/editar_item_venda/{{$linha->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
         </div>
         <!-- /.card-body -->
       </div>
@@ -70,31 +70,31 @@
         <!-- /.card-header -->
         <div class="card-body">
           <strong>Produto</strong>
-            <p>{{ $itemVenda->produto_id }}</p>
+            <p>{{ $linha->produto_id }}</p>
 
           <hr>
           <strong>Quantidade de produtos</strong>
-            <p>{{ $itemVenda->qtd_produto }}</p>
+            <p>{{ $linha->qtd_produto }}</p>
 
           <hr>
           <strong>Data de inicio</strong>
-            <p>{{ $itemVenda->data_inicio }}</p>
+            <p>{{ $linha->data_inicio }}</p>
 
           <hr>
           <strong>Data final</strong>
-            <p>{{ $itemVenda->data_final }}</p>
+            <p>{{ $linha->data_final }}</p>
 
           <hr>
           <strong>Valor</strong>
-            <p>{{ $itemVenda->valor }}</p>
+            <p>{{ $linha->valor }}</p>
 
           <hr>
           <strong>Custo de colagem do produto</strong>
-            <p>{{ $itemVenda->custo_colagem_produto }}</p>
+            <p>{{ $linha->custo_colagem_produto }}</p>
 
           <hr>
           <strong>Custo de linha de ônibus</strong>
-            <p>{{ $itemVenda->custo_linha_onibus }}</p>
+            <p>{{ $linha->custo_linha_onibus }}</p>
 
           <hr>
         </div>
@@ -233,71 +233,44 @@
                   <div class="col-lg-8 space-y-2">
 
                       <!-- Form Inline - Alternative Style -->
-                      <form class="row" action="/actualizar_item_venda/{{$itemVenda->id}}" method="POST" enctype="multipart/form-data">
+                      <form class="row" action="/actualizar_item_venda/{{$linha->id}}" method="POST" enctype="multipart/form-data">
                           @csrf <!-- CSRF token -->
 
                             <div class="mb-4 col-8 inline-block">
                               <label class="form-label" for="orcamento_id">Orçamento</label>
-                              <select name="orcamento_id" id="orcamento_id"  class="form-control">
-                                <option value="{{ $itemVenda->orcamento_id }}">{{ $itemVenda->orcamento_id }}</option>
-                                @if ($orcamento->isNotEmpty())
-                                @foreach ($orcamento as $item)
-                                <option value="{{ $item->orcamento_id }}">{{ $item->nome_campanha }}</option>
-                                @endforeach
-                                @else
-                                <option value="" disabled>Nenhum orçamento encontrado</option>
-                                @endif
-                              </select>
+
                             </div>
                             <div class="mb-4 col-8 inline-block">
                                 <label class="form-label" for="logomarca">Venda</label>
-                               <select name="venda_id" id="venda_id" class="form-control">
-                                <option value="{{ $itemVenda->venda_id }}">{{ $itemVenda->venda_id }}</option>
-                                @if ($venda->isNotEmpty())
-                                @foreach ($venda as $item)
-                                <option value="{{ $item->venda_id }}">{{ $item->id }}</option>
-                                @endforeach
-                                @else
-                                <option value="" disabled>Nenhuma venda encontrada</option>
-                                @endif
-                               </select>
+
                             </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                 <label class="form-label" for="dm-ecom-product-name">Produto</label>
-                                <select name="produto" id="produto" class="form-control">
-                                    <option value="{{ $itemVenda->produto }}">{{ $itemVenda->produto }}</option>
-                                    @if ($produto->isNotEmpty())
-                                    @foreach ($produto as $item)
-                                    <option value="{{ $item->produto_id }}">{{ $item->nome }}</option>
-                                    @endforeach
-                                    @else
-                                    <option value="" disabled>Nenhum produto encontrado</option>
-                                    @endif
-                                   </select>
+
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="qtd_produto">Quantidade de produtos</label>
-                                    <input type="number" name="qtd_produto" value="{{ $itemVenda->qtd_produto }}" id="qtd_produto" class="form-control">
+                                    <input type="number" name="qtd_produto" value="{{ $linha->qtd_produto }}" id="qtd_produto" class="form-control">
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="data_inicio">Data de inicio</label>
-                                    <input type="date" name="data_inicio" id="data_inicio" value="{{ $itemVenda->data_inicio }}" class="form-control">
+                                    <input type="date" name="data_inicio" id="data_inicio" value="{{ $linha->data_inicio }}" class="form-control">
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="data_final">Data final</label>
-                                    <input type="date" value="{{ $itemVenda->data_final }}" name="data_final" id="data_final" class="form-control">
+                                    <input type="date" value="{{ $linha->data_final }}" name="data_final" id="data_final" class="form-control">
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="valor">Valor</label>
-                                    <input type="number" name="valor" value="{{ $itemVenda->valor }}" id="valor" class="form-control">
+                                    <input type="number" name="valor" value="{{ $linha->valor }}" id="valor" class="form-control">
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="custo_colagem_produto">Custo de colagem do produto</label>
-                                    <input type="number" value="{{ $itemVenda->custo_colagem_produto }}" name="custo_colagem_produto" id="custo_colagem_produto" class="form-control">
+                                    <input type="number" value="{{ $linha->custo_colagem_produto }}" name="custo_colagem_produto" id="custo_colagem_produto" class="form-control">
                                 </div>
                                 <div class="mb-4 col-8 inline-block cep">
                                     <label class="form-label" for="custo_linha_onibus">Custo de linha do onibus</label>
-                                    <input type="number" value="{{ $itemVenda->custo_linha_onibus }}" name="custo_linha_onibus" id="custo_linha_onibus" class="form-control">
+                                    <input type="number" value="{{ $linha->custo_linha_onibus }}" name="custo_linha_onibus" id="custo_linha_onibus" class="form-control">
                                 </div>
 
                           <!-- Submit button -->
@@ -333,7 +306,7 @@
 
 <script>
 
-function confirmarApagar(itemVendaId) {
+function confirmarApagar(linhaId) {
         Swal.fire({
             title: 'Confirmar Ação',
             text: 'Tem certeza de que deseja apagar este item?',
@@ -344,7 +317,7 @@ function confirmarApagar(itemVendaId) {
             confirmButtonText: 'Sim, Apagar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminar_linha/" + itemVendaId;
+                window.location.href = "/eliminar_linha/" + linhaId;
             }
         });
     }
