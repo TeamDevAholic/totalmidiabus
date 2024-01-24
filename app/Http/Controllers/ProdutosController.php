@@ -70,7 +70,7 @@ class ProdutosController extends Controller
         $produto->status = $request->status ?? 1;
 
         $produto->save();
-
+        
         $user_logado = Auth::user();
         $this->registarLog("O produto com o id {$produto->id} e nome {$produto->nome} foi editado com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 

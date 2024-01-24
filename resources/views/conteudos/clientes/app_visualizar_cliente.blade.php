@@ -345,7 +345,7 @@
                   <div class="col-lg-8 space-y-2">
 
                       <!-- Form Inline - Alternative Style -->
-                      <form class="row" action="" method="POST" enctype="multipart/form-data">
+                      <form class="row" action="actualizar_cliente/{{ $cliente->id }}" method="POST" enctype="multipart/form-data">
                           @csrf <!-- CSRF token -->
 
                           <!-- Primeira Coluna -->
@@ -495,7 +495,7 @@
             }
         });
     }
-    
+
   $(document).ready(function() {
     // Handle click event for Timeline tab
     $('a[href="#timeline"]').on('click', function(e) {

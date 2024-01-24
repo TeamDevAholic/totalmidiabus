@@ -82,8 +82,15 @@
             </ul>
             @endcan
             <li class="nav-main-item">
+                <a class="nav-main-link" href="/responsaveis">
+                <i class="nav-main-link-icon fa fa-user-friends"></i>
+                <span class="nav-main-link-name">Responsaveis
+                </span>
+                </a>
+            </li>
+            <li class="nav-main-item">
                 <a class="nav-main-link" href="/produtos">
-                <i class="nav-main-link-icon fa fa-produt"></i>
+                <i class="nav-main-link-icon fa fa-toolbox"></i>
                 <span class="nav-main-link-name">Produtos
                 </span>
                 </a>

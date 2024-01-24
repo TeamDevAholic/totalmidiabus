@@ -18,17 +18,17 @@
 
   <div class="py-2">
     <h1 class="fw-bold text-dark  ">
-      {{$venda->lista_produtos}}
+      {{$responsavel->nome}}
     </h1>
   </div>
   <div style=" margin-left:73%; margin-top: -5%;">
-    <a class="btn btn-hero btn-primary" href="/editar_item_venda/{{$venda->id}}" data-toggle="click-ripple">
+    <a class="btn btn-hero btn-primary" href="/editar_responsavel/{{$responsavel->id}}" data-toggle="click-ripple">
       <i class="fa fa-pencil-alt"></i>
     </a>
-    <a class="btn btn-hero btn-primary" href="#" onclick="confirmarApagar({{$venda->id}})" data-toggle="click-ripple">
+    <a class="btn btn-hero btn-primary" href="#" onclick="confirmarEliminar({{$responsavel->id}})" data-toggle="click-ripple">
       <i class="fa fa-trash"></i>
   </a>
-    <a class="btn  btn-hero btn-primary my-2" href="/vendas">
+    <a class="btn  btn-hero btn-primary my-2" href="/responsaveis">
       <i class="fa fa-reply" aria-hidden="true"></i>
       <span class="d-sm-inline ms-1"></span>
     </a>
@@ -40,22 +40,25 @@
       <div class="card card-primary card-outline">
         <div class="card-body box-profile">
           <div class="text-center">
-            @if ($venda->logomarca)
-
             <img class="profile-user-img img-fluid img-circle"
-                 src="{{ $venda->logomarca }}"
+                 src="{{asset('media/avatars/avatar0.jpg')}}"
                  alt="User profile picture">
-            @else
-            <img class="profile-user-img img-fluid img-circle"
-                 src="{{ asset('media/avatars/avatar0.jpg') }}"
-                 alt="User profile picture">
-            @endif
           </div>
 
-          <h3 class="profile-username text-center">{{ $venda->lista_produtos }}</h3>
+          <h3 class="profile-username text-center">{{ $responsavel->nome }}</h3>
 
+          <p class="text-muted text-center">{{ $responsavel->email }}</p>
 
-          <a href="/editar_item_venda/{{$venda->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
+          <ul class="list-group list-group-unbordered mb-3">
+            <li class="list-group-item">
+              <b>WhatsApp: </b> {{ $responsavel->whatsapp }}
+            </li>
+            <li class="list-group-item">
+              <b>Celular: </b> {{ $responsavel->celular }}
+            </li>
+          </ul>
+
+          <a href="/editar_responsavel/{{$responsavel->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
         </div>
         <!-- /.card-body -->
       </div>
@@ -64,73 +67,24 @@
       <!-- About Me Box -->
       <div class="card card-primary">
         <div class="card-header">
-          <h5 class="card-title">Mais informações da venda </h5>
+          <h5 class="card-title">Mais informações do responsavel</h5>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <strong>Número P.I</strong>
-            <p>{{ $venda->numero_pi }}</p>
+          <strong><i class="fab fa-active mr-1"></i> Setor</strong>
+
+          <p class="text-muted">
+            {{ $responsavel->setor }}
+          </p>
 
           <hr>
-          <strong>Quantidade de parcelas</strong>
-            <p>{{ $venda->qtd_parcelas }}</p>
+
+          <strong>  Data de cadastro</strong>
+
+          <p class="text-muted">{{ $responsavel->created_at }}</p>
 
           <hr>
-          <strong>Data de inicio de campanha</strong>
-            <p>{{ $venda->inicio_campanha }}</p>
 
-          <hr>
-          <strong>Número NF</strong>
-            <p>{{ $venda->numero_nf }}</p>
-
-          <hr>
-          <strong>Valor bruto</strong>
-            <p>{{ $venda->valor_bruto }}</p>
-
-          <hr>
-          <strong>Valor do imposto</strong>
-            <p>{{ $venda->valor_imposto }}</p>
-
-          <hr>
-          <strong>Valor depositado</strong>
-            <p>{{ $venda->valor_depositado }}</p>
-
-          <hr>
-          <strong>Pagamento da colagem</strong>
-            <p>{{ $venda->pagamento_colagem }}</p>
-
-          <hr>
-          <strong>Pagamento garagem</strong>
-            <p>{{ $venda->pagamento_garagem }}</p>
-
-          <hr>
-          <strong>Fluxo</strong>
-            <p>{{ $venda->fluxo }}</p>
-
-          <hr>
-          <strong>Anexo</strong>
-            <p>
-             <a href="{{ $venda->anexo_pdf }}">{{ $venda->anexo_pdf }}</a>
-            </p>
-
-          <hr>
-          <strong>Imagem de comprovação</strong>
-
-            <p>{{ $venda->fluxo }}
-            <img src="{{ $venda->fluxo }}" alt="IMAGEM DE COMPROVAÇÃO">
-            </p>
-
-          <hr>
-          <strong>Status</strong>
-         <p>
-         @if ($venda->status == 'orçamento')
-            <span class="badge bg-success">Orçamento</span>
-          @else
-            <span class="badge bg-danger">Status não especificado correctamente</span>
-          @endif
-            </p>
-
-          <hr>
         </div>
         <!-- /.card-body -->
       </div>
@@ -159,8 +113,106 @@
                   </span>
                   <span class="description">Shared publicly - 7:30 PM today</span>
                 </div>
-                </div>
+                <!-- /.user-block -->
+                <p>
+                  Lorem ipsum represents a long-held tradition for designers,
+                  typographers and the like. Some people hate it and argue for
+                  its demise, but others ignore the hate as they create awesome
+                  tools to help create filler text for everyone from bacon lovers
+                  to Charlie Sheen fans.
+                </p>
+
+                <p>
+                  <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                  <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                  <span class="float-right">
+                    <a href="#" class="link-black text-sm">
+                      <i class="far fa-comments mr-1"></i> Comments (5)
+                    </a>
+                  </span>
+                </p>
+
+                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+              </div>
               <!-- /.post -->
+
+              <!-- Post -->
+              <div class="post clearfix">
+                <div class="user-block">
+                  <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                  <span class="username">
+                    <a href="#">Sarah Ross</a>
+                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                  </span>
+                  <span class="description">Sent you a message - 3 days ago</span>
+                </div>
+                <!-- /.user-block -->
+                <p>
+                  Lorem ipsum represents a long-held tradition for designers,
+                  typographers and the like. Some people hate it and argue for
+                  its demise, but others ignore the hate as they create awesome
+                  tools to help create filler text for everyone from bacon lovers
+                  to Charlie Sheen fans.
+                </p>
+
+                <form class="form-horizontal">
+                  <div class="input-group input-group-sm mb-0">
+                    <input class="form-control form-control-sm" placeholder="Response">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-danger">Send</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.post -->
+
+              <!-- Post -->
+              <div class="post">
+                <div class="user-block">
+                  <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
+                  <span class="username">
+                    <a href="#">Adam Jones</a>
+                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                  </span>
+                  <span class="description">Posted 5 photos - 5 days ago</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="row mb-3">
+                  <div class="col-sm-6">
+                    <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-6">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
+                        <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-sm-6">
+                        <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
+                        <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                <p>
+                  <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                  <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                  <span class="float-right">
+                    <a href="#" class="link-black text-sm">
+                      <i class="far fa-comments mr-1"></i> Comments (5)
+                    </a>
+                  </span>
+                </p>
+
+                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+              </div>
               <!-- /.post -->
             </div>
             <!-- /.tab-pane -->
@@ -267,74 +319,53 @@
                   <div class="col-lg-8 space-y-2">
 
                       <!-- Form Inline - Alternative Style -->
-                      <form action="/actualizar_venda/{{$venda->id}}" method="POST" enctype="multipart/form-data">
-
+                      <form action="/actualizar_responsavel/{{$responsavel->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-4 col-12 inline-block">
-                          <label class="form-label" for="lista_produtos">Lista de produtos</label>
-                          <select class="form-control" name="lista_produtos"  id="lista_produtos">
-                            @if ($produtos->isNotEmpty())
-                            @foreach ($produtos as $item)
-                            <option value="{{ $item->nome }}">{{ $item->nome }}</option>
-                            @endforeach
-                            @else
-                            <option value="" disabled>Nenhum produto encontrado</option>
-                            @endif
-                        </select>
-                        </div>
-                        <div class="mb-4 col-12 inline-block">
-                            <label class="form-label" for="cpf">Número de P.I</label>
-                            <input type="number" class="form-control" id="numero_pi" required name="numero_pi" value="{{ $venda->numero_pi }}"  maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
-                            </div>
-                            <div class="mb-4 col-12 inline-block">
-                              <label class="form-label" for="qtd_parcelas">Quantidade por parcelas</label>
-                              <input type="number" class="form-control" id="dm-ecom-product-name" value="{{ $venda->qtd_parcelas }}" required name="qtd_parcelas" >
-                            </div>
-                            <div class="mb-4 col-12 inline-block">
-                              <label class="form-label" for="dm-ecom-product-name">Data de inicio da campanha</label>
-                              <input type="date" class="form-control" id="dm-ecom-product-name" required name="inicio_campanha" value="{{ $venda->inicio_campanha }}" >
-                            </div>
-                            <div class="mb-4 col-12 inline-block">
-                              <label class="form-label" for="dm-ecom-product-name">Número <small>(NF)</small></label>
-                              <input type="number" class="form-control" id="dm-ecom-product-name" value="{{ $venda->numero_nf }}" required name="numero_nf" >
-                            </div>
-                            <div class="mb-4 col-12 inline-block">
-                              <label class="form-label" for="valor_bruto">Valor bruto</label>
-                              <input type="number" class="form-control" id="valor_bruto" value="{{ $venda->valor_bruto }}" required name="valor_bruto" >
-                            </div>
-                            <div class="mb-4 col-12 inline-block">
-                              <label class="form-label" for="valor_imposto">Valor imposto</label>
-                              <input type="number" name="valor_imposto" id="valor_imposto" value="{{ $venda->valor_imposto }}" class="form-control">
-                            </div>
-                            <div class="mb-4 col-12 inline-block cep">
-                            <label class="form-label" for="dm-ecom-product-name">Valor depositado</label>
-                            <input type="number" class="form-control" id="cep" name="valor_depositado" value="{{ $venda->valor_depositado }}" size="10" maxlength="9" required>
-                            </div>
-                            <div class="mb-4 col-12 inline-block rua">
-                                <label class="form-label" for="pagamento_colagem">Pagamento colagem</label>
-                                <input type="number" class="form-control" id="pagamento_colagem" value="{{ $venda->pagamento_colagem }}" name="pagamento_colagem"  required>
+
+                            <div class="mb-4 col-9 inline-block">
+                              <label class="form-label" for="nome">Nome do Responsavel</label>
+                              <input type="text" class="form-control" id="nome" required name="nome" value="{{ $responsavel->nome }}">
                             </div>
 
-                            <div class="mb-4 col-12 inline-block Bairro">
-                                <label class="form-label" for="pagamento_garagem">Pagamento garagem</label>
-                                <input type="text" class="form-control" id="pagamento_garagem" name="pagamento_garagem" value="{{ $venda->pagamento_garagem }}" required>
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="email">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{$responsavel->email ?? ''}}">
+                            </div>
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="descricao">Whatsapp</label>
+                                <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="{{$responsavel->whatsapp ?? ''}}">
                             </div>
 
-                            <div class="mb-4 col-12 inline-block Cidade">
-                                <label class="form-label" for="fotos_comprovacao">Foto de comprovação</label>
-                                <input type="file" class="form-control" id="fotos_comprovacao" value="{{ $venda->fotos_comprovacao }}" name="fotos_comprovacao" required>
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="celular">Celular</label>
+                                <input type="text" name="celular" id="celular" value="{{$responsavel->celular ?? ''}}" class="form-control">
+                            </div>
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="setor">Setor</label>
+                                <input type="text" name="setor" id="setor" value="{{$responsavel->setor ?? ''}}" class="form-control">
+                            </div>
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="data_aniversario">Data de aniversário</label>
+                                <input type="date" name="data_aniversario" id="data_aniversario" value="{{$responsavel->data_aniversario ?? ''}}" class="form-control">
                             </div>
 
-                            <div class="mb-4 col-12 inline-block complemento">
-                                <label class="form-label" for="anexo_pdf">Anexo <small>(PDF)</small></label>
-                                <input type="file" class="form-control" id="anexo_pdf" value="{{ $venda->anexo_pdf }}" name="anexo_pdf">
+                            <div class="mb-4 col-9 inline-block complemento">
+                                <label class="form-label" for="empresa_id">Empresa</label>
+                                <select name="empresa_id" id="empresa_id" class="form-control">
+                                    @if ($empresa->isNotEmpty())
+                                     @foreach ($empresa as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nome }}</option>
+                                     @endforeach
+                                    @else
+                                    <option value="" disabled>Nenhuma empresa encontrada</option>
+                                    @endif
+                                </select>
                             </div>
 
                         <div class="mb-4">
                           <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                       </form>
-
                       <!-- END Form Inline - Alternative Style -->
                   </div>
               </div>
@@ -360,19 +391,18 @@
 
 
 <script>
-
-function confirmarApagar(vendaId) {
+   function confirmarEliminar(produtoId) {
         Swal.fire({
-            title: 'Confirmar Ação',
-            text: 'Tem certeza de que deseja apagar esta venda?',
+            title: 'Confirmar Eliminar',
+            text: 'Tem certeza de que deseja eliminar este produto?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sim, Apagar!'
+            confirmButtonText: 'Sim, Eliminar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminar_venda/" + vendaId;
+                window.location.href = "/eliminar_produto/" + produtoId;
             }
         });
     }

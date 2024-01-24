@@ -29,7 +29,25 @@ class VendasController extends Controller
         $produtos = Produtos::all();
         return view('conteudos.vendas.app_registar_venda', compact('venda','produtos'));
     }
+    public function createpi1($id){
+        $venda = Vendas::find($id);
+        $produtos = Produtos::all();
 
+        return view('conteudos.vendas.app_registar_vendapi1', compact('venda','produtos'));
+
+    }
+    public function createpi2($id){
+        $venda = Vendas::find($id);
+        $produtos = Produtos::all();
+        return view('conteudos.vendas.app_registar_vendapi2', compact('venda','produtos'));
+
+    }
+    public function createpi3($id){
+        $venda = Vendas::find($id);
+        $produtos = Produtos::all();
+        return view('conteudos.vendas.app_registar_vendapi3', compact('venda','produtos'));
+
+    }
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -54,15 +72,15 @@ class VendasController extends Controller
         if ($request->fotos_comprovacao) {
             $fotos_comprovacao = $request->fotos_comprovacao;
             $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
-            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
                 return back()->with('erro', 'Erro: foto inválida');
             }
         }
         $venda->save();
 
         if ($request->fotos_comprovacao) {
-                    File::move($fotos_comprovacao, public_path().'/media/vendas/imag_'.$venda->id.'.'.$extensaoI);
-                    $venda->fotos_comprovacao = '/media/vendas/imag_'.$venda->id.'.'.$extensaoI;
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
                     $venda->save();
                 }
 
@@ -70,15 +88,15 @@ class VendasController extends Controller
                     $anexo_pdf = $request->anexo_pdf;
                     $extensaoI =  $anexo_pdf->getClientOriginalExtension();
                     if ($extensaoI!= 'pdf') {
-                        return back()->with('erro', 'Erro: anexo inválida');
+                        return back()->with('erro', 'Erro: anexo inválido');
                     }
                 }
 
                 $venda->save();
 
                 if ($request->anexo_pdf) {
-                            File::move($anexo_pdf, public_path().'/media/anexos/pdf_'.$venda->id.'.'.$extensaoI);
-                            $venda->fotos_comprovacao = '/media/anexos/pdf_'.$venda->id.'.'.$extensaoI;
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
                             $venda->save();
                         }
 
@@ -88,14 +106,194 @@ class VendasController extends Controller
         $user_logado = Auth::user();
         $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
-        return redirect('/vendas');
+        return redirect('/registar_venda_pi1/'.$venda->id);
+    }
+    public function storepi1(Request $request)
+    {
+        $user = Auth::user();
+
+        $venda = new Vendas;
+        $venda->lista_produtos = $request->lista_produtos;
+        $venda->numero_pi = $request->numero_pi;
+        $venda->qtd_parcelas = $request->qtd_parcelas;
+        $venda->inicio_campanha = $request->inicio_campanha;
+        $venda->anexo_pdf = $request->anexo_pdf;
+        $venda->numero_nf = $request->numero_nf;
+        $venda->valor_bruto = $request->valor_bruto;
+        $venda->valor_imposto = $request->valor_imposto;
+        $venda->valor_depositado = $request->valor_depositado;
+        $venda->pagamento_colagem = $request->pagamento_colagem;
+        $venda->pagamento_garagem = $request->pagamento_garagem;
+        $venda->fotos_comprovacao = $request->fotos_comprovacao;
+        $venda->fluxo = $request->fluxo ?? 'vendedor';
+        $venda->status = $request->status ?? 'orçamento';
+
+
+        if ($request->fotos_comprovacao) {
+            $fotos_comprovacao = $request->fotos_comprovacao;
+            $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
+        $venda->save();
+
+        if ($request->fotos_comprovacao) {
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
+                    $venda->save();
+                }
+
+                if ($request->anexo_pdf) {
+                    $anexo_pdf = $request->anexo_pdf;
+                    $extensaoI =  $anexo_pdf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_pdf) {
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+        $venda->save();
+        Alert::toast('Venda Registrada Com Sucesso', 'success');
+
+        $user_logado = Auth::user();
+        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+        return redirect('/registar_venda_pi2/'.$venda->id);
+    }
+    public function storepi2(Request $request)
+    {
+        $user = Auth::user();
+
+        $venda = new Vendas;
+        $venda->lista_produtos = $request->lista_produtos;
+        $venda->numero_pi = $request->numero_pi;
+        $venda->qtd_parcelas = $request->qtd_parcelas;
+        $venda->inicio_campanha = $request->inicio_campanha;
+        $venda->anexo_pdf = $request->anexo_pdf;
+        $venda->numero_nf = $request->numero_nf;
+        $venda->valor_bruto = $request->valor_bruto;
+        $venda->valor_imposto = $request->valor_imposto;
+        $venda->valor_depositado = $request->valor_depositado;
+        $venda->pagamento_colagem = $request->pagamento_colagem;
+        $venda->pagamento_garagem = $request->pagamento_garagem;
+        $venda->fotos_comprovacao = $request->fotos_comprovacao;
+        $venda->fluxo = $request->fluxo ?? 'vendedor';
+        $venda->status = $request->status ?? 'orçamento';
+
+
+        if ($request->fotos_comprovacao) {
+            $fotos_comprovacao = $request->fotos_comprovacao;
+            $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
+        $venda->save();
+
+        if ($request->fotos_comprovacao) {
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
+                    $venda->save();
+                }
+
+                if ($request->anexo_pdf) {
+                    $anexo_pdf = $request->anexo_pdf;
+                    $extensaoI =  $anexo_pdf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_pdf) {
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+        $venda->save();
+        Alert::toast('Venda Registrada Com Sucesso', 'success');
+
+        $user_logado = Auth::user();
+        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+        return redirect('/registar_venda_pi3/'.$venda->id);
+    }
+    public function storepi3(Request $request)
+    {
+        $user = Auth::user();
+
+        $venda = new Vendas;
+        $venda->lista_produtos = $request->lista_produtos;
+        $venda->numero_pi = $request->numero_pi;
+        $venda->qtd_parcelas = $request->qtd_parcelas;
+        $venda->inicio_campanha = $request->inicio_campanha;
+        $venda->anexo_pdf = $request->anexo_pdf;
+        $venda->numero_nf = $request->numero_nf;
+        $venda->valor_bruto = $request->valor_bruto;
+        $venda->valor_imposto = $request->valor_imposto;
+        $venda->valor_depositado = $request->valor_depositado;
+        $venda->pagamento_colagem = $request->pagamento_colagem;
+        $venda->pagamento_garagem = $request->pagamento_garagem;
+        $venda->fotos_comprovacao = $request->fotos_comprovacao;
+        $venda->fluxo = $request->fluxo ?? 'vendedor';
+        $venda->status = $request->status ?? 'orçamento';
+
+
+        if ($request->fotos_comprovacao) {
+            $fotos_comprovacao = $request->fotos_comprovacao;
+            $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
+        $venda->save();
+
+        if ($request->fotos_comprovacao) {
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
+                    $venda->save();
+                }
+
+                if ($request->anexo_pdf) {
+                    $anexo_pdf = $request->anexo_pdf;
+                    $extensaoI =  $anexo_pdf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_pdf) {
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+        $venda->save();
+        Alert::toast('Fluxo terminado, parabens', 'success');
+
+        $user_logado = Auth::user();
+        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+        return redirect('/orcamentos');
     }
 
     public function show($id)
     {
         $venda = Vendas::find($id);
-
-        return view('conteudos.vendas.app_visualizar_venda', compact('venda'));
+        $produtos = Produtos::all();
+        return view('conteudos.vendas.app_visualizar_venda', compact('venda','produtos'));
     }
 
     public function edit($id)
@@ -125,7 +323,39 @@ class VendasController extends Controller
         $venda->fluxo = $request->fluxo ?? 'vendedor';
         $venda->status = $request->status ?? 'orçamento';
 
+        if ($request->fotos_comprovacao) {
+            $fotos_comprovacao = $request->fotos_comprovacao;
+            $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
         $venda->save();
+
+        if ($request->fotos_comprovacao) {
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
+                    $venda->save();
+                }
+
+                if ($request->anexo_pdf) {
+                    $anexo_pdf = $request->anexo_pdf;
+                    $extensaoI =  $anexo_pdf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_pdf) {
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+        $venda->save();
+
 
         $user_logado = Auth::user();
         $this->registarLog("A venda com o id {$venda->id} foi editada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
