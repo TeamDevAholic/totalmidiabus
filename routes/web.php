@@ -62,11 +62,18 @@ Route::post('/salvar_linha', 'App\Http\Controllers\linhasController@store')->mid
 
 Route::get('/vendas', 'App\Http\Controllers\VendasController@index')->middleware('auth');
 Route::get('/registar_venda/{id}', 'App\Http\Controllers\VendasController@create')->middleware('auth');
+Route::get('/registar_venda_pi1/{id}', 'App\Http\Controllers\VendasController@createpi1')->middleware('auth');
+Route::get('/registar_venda_pi2/{id}', 'App\Http\Controllers\VendasController@createpi2')->middleware('auth');
+Route::get('/registar_venda_pi3/{id}', 'App\Http\Controllers\VendasController@createpi3')->middleware('auth');
+
 Route::get('/editar_venda/{id}', 'App\Http\Controllers\VendasController@edit')->middleware('auth');
 Route::get('/visualizar_venda/{id}', 'App\Http\Controllers\VendasController@show')->middleware('auth');
 Route::get('/eliminar_venda/{id}', 'App\Http\Controllers\VendasController@destroy')->middleware('auth');
 Route::post('/actualizar_venda/{id}', 'App\Http\Controllers\VendasController@update')->middleware('auth');
 Route::post('/salvar_venda', 'App\Http\Controllers\VendasController@store')->middleware('auth');
+Route::post('/salvar_vendapi1', 'App\Http\Controllers\VendasController@storepi1')->middleware('auth');
+Route::post('/salvar_vendapi2', 'App\Http\Controllers\VendasController@storepi2')->middleware('auth');
+Route::post('/salvar_vendapi3', 'App\Http\Controllers\VendasController@storepi3')->middleware('auth');
 
 // ========================= EMPRESAS ========================
 
