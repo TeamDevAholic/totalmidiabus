@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/access_login', function () {
+    return view('auth.login');
+})->name('access_login');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', 'App\Http\Controllers\adminController@dashboard')->middleware('auth')->middleware('auth');
