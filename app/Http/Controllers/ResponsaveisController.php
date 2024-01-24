@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Responsaveis;
 use App\Models\Logs;
+use App\Models\Empresas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Alert;
+use Alert;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -22,7 +23,8 @@ class ResponsaveisController extends Controller
 
     public function create()
     {
-        return view('conteudos.responsaveis.app_registar_responsavel');
+        $empresa = Empresas::all();
+        return view('conteudos.responsaveis.app_registar_responsavel', compact('empresa'));
     }
 
     public function store(Request $request)
@@ -51,15 +53,15 @@ class ResponsaveisController extends Controller
     public function show($id)
     {
         $responsavel = Responsaveis::find($id);
-
-        return view('conteudos.responsaveis.app_visualizar_responsavel', compact('responsavel'));
+        $empresa = Empresas::all();
+        return view('conteudos.responsaveis.app_visualizar_responsavel', compact('responsavel','empresa'));
     }
 
     public function edit($id)
     {
         $responsavel = Responsaveis::find($id);
-
-        return view('conteudos.responsaveis.app_editar_responsavel', compact('responsavel'));
+        $empresa = Empresas::all();
+        return view('conteudos.responsaveis.app_editar_responsavel', compact('responsavel','empresa'));
     }
 
     public function update(Request $request, $id)

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('setor', 50);
             $table->date('data_aniversario');
             $table->timestamps();
+            
         });
     }
 

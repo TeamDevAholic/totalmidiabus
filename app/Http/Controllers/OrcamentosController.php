@@ -64,6 +64,7 @@ class OrcamentosController extends Controller
     Alert::toast('Orçamento cadastrado com sucesso', 'success');
 
     $produtos = Produtos::all();
+    
     return view('conteudos.vendas.app_registar_venda', compact('produtos'));
 }
 
