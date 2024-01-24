@@ -27,6 +27,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard', 'App\Http\Controllers\adminController@dashboard')->middleware('auth')->middleware('auth');
 Route::get('/logout', 'App\Http\Controllers\adminController@logout')->middleware('auth');
 
+// ========================= REGRAS DO SISTEMA ========================
+
 Route::get('/roles_users','App\Http\Controllers\adminController@roles_users') ->name('roles');
 Route::get('/permissions_roles','App\Http\Controllers\adminController@permissions_roles')->name('permissions');
 Route::get('/permissions_roles_by_id/{id}','App\Http\Controllers\adminController@permissions_roles_by_id')->middleware('auth');
@@ -46,6 +48,7 @@ Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\clientesController@de
 Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\clientesController@update')->middleware('auth');
 Route::post('/salvar_cliente', 'App\Http\Controllers\clientesController@store')->middleware('auth');
 
+// ========================= LINHAS ========================
 
 Route::get('/linhas', 'App\Http\Controllers\linhasController@index')->middleware('auth');
 Route::get('/registar_linha', 'App\Http\Controllers\linhasController@create')->middleware('auth');
@@ -55,6 +58,7 @@ Route::get('/eliminar_linha/{id}', 'App\Http\Controllers\linhasController@destro
 Route::post('/actualizar_linha/{id}', 'App\Http\Controllers\linhasController@update')->middleware('auth');
 Route::post('/salvar_linha', 'App\Http\Controllers\linhasController@store')->middleware('auth');
 
+// ========================= VENDAS ========================
 
 Route::get('/vendas', 'App\Http\Controllers\VendasController@index')->middleware('auth');
 Route::get('/registar_venda', 'App\Http\Controllers\VendasController@create')->middleware('auth');
@@ -64,6 +68,7 @@ Route::get('/eliminar_venda/{id}', 'App\Http\Controllers\VendasController@destro
 Route::post('/actualizar_venda/{id}', 'App\Http\Controllers\VendasController@update')->middleware('auth');
 Route::post('/salvar_venda', 'App\Http\Controllers\VendasController@store')->middleware('auth');
 
+// ========================= EMPRESAS ========================
 
 Route::get('/empresas', 'App\Http\Controllers\EmpresasController@index')->middleware('auth');
 Route::get('/registar_empresa', 'App\Http\Controllers\EmpresasController@create')->middleware('auth');
@@ -73,6 +78,7 @@ Route::get('/eliminar_empresa/{id}', 'App\Http\Controllers\EmpresasController@de
 Route::post('/actualizar_empresa/{id}', 'App\Http\Controllers\EmpresasController@update')->middleware('auth');
 Route::post('/salvar_empresa', 'App\Http\Controllers\EmpresasController@store')->middleware('auth');
 
+// ========================= PRODUTOS ========================
 
 Route::get('/produtos', 'App\Http\Controllers\ProdutosController@index')->middleware('auth');
 Route::get('/registar_produto', 'App\Http\Controllers\ProdutosController@create')->middleware('auth');
@@ -82,6 +88,7 @@ Route::get('/eliminar_produto/{id}', 'App\Http\Controllers\ProdutosController@de
 Route::post('/actualizar_produto/{id}', 'App\Http\Controllers\ProdutosController@update')->middleware('auth');
 Route::post('/salvar_produto', 'App\Http\Controllers\ProdutosController@store')->middleware('auth');
 
+// ========================= ITENS DE VENDAS ========================
 
 Route::get('/itens_vendas', 'App\Http\Controllers\ItensVendasController@index')->middleware('auth');
 Route::get('/registar_item_venda', 'App\Http\Controllers\ItensVendasController@create')->middleware('auth');
@@ -91,6 +98,7 @@ Route::get('/eliminar_item_venda/{id}', 'App\Http\Controllers\ItensVendasControl
 Route::post('/actualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@update')->middleware('auth');
 Route::post('/salvar_item_venda', 'App\Http\Controllers\ItensVendasController@store')->middleware('auth');
 
+// ========================= RESPONSAVEIS ========================
 
 Route::get('/responsaveis', 'App\Http\Controllers\ResponsaveisController@index')->middleware('auth');
 Route::get('/registar_responsavel', 'App\Http\Controllers\ResponsaveisController@create')->middleware('auth');
