@@ -54,15 +54,15 @@ class VendasController extends Controller
         if ($request->fotos_comprovacao) {
             $fotos_comprovacao = $request->fotos_comprovacao;
             $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
-            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
                 return back()->with('erro', 'Erro: foto inválida');
             }
         }
         $venda->save();
 
         if ($request->fotos_comprovacao) {
-                    File::move($fotos_comprovacao, public_path().'/media/vendas/imag_'.$venda->id.'.'.$extensaoI);
-                    $venda->fotos_comprovacao = '/media/vendas/imag_'.$venda->id.'.'.$extensaoI;
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
                     $venda->save();
                 }
 
@@ -70,15 +70,15 @@ class VendasController extends Controller
                     $anexo_pdf = $request->anexo_pdf;
                     $extensaoI =  $anexo_pdf->getClientOriginalExtension();
                     if ($extensaoI!= 'pdf') {
-                        return back()->with('erro', 'Erro: anexo inválida');
+                        return back()->with('erro', 'Erro: anexo inválido');
                     }
                 }
 
                 $venda->save();
 
                 if ($request->anexo_pdf) {
-                            File::move($anexo_pdf, public_path().'/media/anexos/pdf_'.$venda->id.'.'.$extensaoI);
-                            $venda->fotos_comprovacao = '/media/anexos/pdf_'.$venda->id.'.'.$extensaoI;
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
                             $venda->save();
                         }
 
@@ -94,8 +94,8 @@ class VendasController extends Controller
     public function show($id)
     {
         $venda = Vendas::find($id);
-
-        return view('conteudos.vendas.app_visualizar_venda', compact('venda'));
+        $produtos = Produtos::all();
+        return view('conteudos.vendas.app_visualizar_venda', compact('venda','produtos'));
     }
 
     public function edit($id)
@@ -125,7 +125,39 @@ class VendasController extends Controller
         $venda->fluxo = $request->fluxo ?? 'vendedor';
         $venda->status = $request->status ?? 'orçamento';
 
+        if ($request->fotos_comprovacao) {
+            $fotos_comprovacao = $request->fotos_comprovacao;
+            $extensaoI =  $fotos_comprovacao->getClientOriginalExtension();
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'PNG' && $extensaoI!= 'JPG') {
+                return back()->with('erro', 'Erro: foto inválida');
+            }
+        }
         $venda->save();
+
+        if ($request->fotos_comprovacao) {
+                    File::move($fotos_comprovacao, public_path().'/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI);
+                    $venda->fotos_comprovacao = '/media/vendas/Totalmidia_imag_'.$venda->id.'.'.$extensaoI;
+                    $venda->save();
+                }
+
+                if ($request->anexo_pdf) {
+                    $anexo_pdf = $request->anexo_pdf;
+                    $extensaoI =  $anexo_pdf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_pdf) {
+                            File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+        $venda->save();
+
 
         $user_logado = Auth::user();
         $this->registarLog("A venda com o id {$venda->id} foi editada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);

@@ -62,7 +62,7 @@
                                     @if ($item->status = 1)
                                     <span class="badge bg-success">Ativo</span>
                                     @else
-                                    <span class="badge bg-success">Inativo</span>
+                                    <span class="badge bg-danger">Inativo</span>
                                     @endif
                                    </td>
                                     <td class="text-center">

@@ -18,7 +18,7 @@
 
   <div class="py-2">
     <h1 class="fw-bold text-dark  ">
-      {{$venda->nome}}
+      {{$venda->lista_produtos}}
     </h1>
   </div>
   <div style=" margin-left:73%; margin-top: -5%;">
@@ -28,7 +28,7 @@
     <a class="btn btn-hero btn-primary" href="#" onclick="confirmarApagar({{$venda->id}})" data-toggle="click-ripple">
       <i class="fa fa-trash"></i>
   </a>
-    <a class="btn  btn-hero btn-primary my-2" href="/itens_vendas">
+    <a class="btn  btn-hero btn-primary my-2" href="/vendas">
       <i class="fa fa-reply" aria-hidden="true"></i>
       <span class="d-sm-inline ms-1"></span>
     </a>
@@ -52,9 +52,8 @@
             @endif
           </div>
 
-          <h3 class="profile-username text-center">{{ $venda->numero_venda }}</h3>
+          <h3 class="profile-username text-center">{{ $venda->lista_produtos }}</h3>
 
-          <p class="text-muted text-center">{{ $venda->nome }}</p>
 
           <a href="/editar_item_venda/{{$venda->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
         </div>
@@ -65,36 +64,71 @@
       <!-- About Me Box -->
       <div class="card card-primary">
         <div class="card-header">
-          <h5 class="card-title">Mais informações do item </h5>
+          <h5 class="card-title">Mais informações da venda </h5>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <strong>Município</strong>
-            <p>{{ $venda->municipio }}</p>
+          <strong>Número P.I</strong>
+            <p>{{ $venda->numero_pi }}</p>
 
           <hr>
-          <strong>Empresa</strong>
-            <p>{{ $venda->qtd_produto }}</p>
+          <strong>Quantidade de parcelas</strong>
+            <p>{{ $venda->qtd_parcelas }}</p>
 
           <hr>
-          <strong>Data de inicio</strong>
-            <p>{{ $venda->data_inicio }}</p>
+          <strong>Data de inicio de campanha</strong>
+            <p>{{ $venda->inicio_campanha }}</p>
 
           <hr>
-          <strong>Data final</strong>
-            <p>{{ $venda->data_final }}</p>
+          <strong>Número NF</strong>
+            <p>{{ $venda->numero_nf }}</p>
 
           <hr>
-          <strong>Valor</strong>
-            <p>{{ $venda->valor }}</p>
+          <strong>Valor bruto</strong>
+            <p>{{ $venda->valor_bruto }}</p>
 
           <hr>
-          <strong>Custo de colagem do produto</strong>
-            <p>{{ $venda->custo_colagem_produto }}</p>
+          <strong>Valor do imposto</strong>
+            <p>{{ $venda->valor_imposto }}</p>
 
           <hr>
-          <strong>Custo de venda de ônibus</strong>
-            <p>{{ $venda->custo_venda_onibus }}</p>
+          <strong>Valor depositado</strong>
+            <p>{{ $venda->valor_depositado }}</p>
+
+          <hr>
+          <strong>Pagamento da colagem</strong>
+            <p>{{ $venda->pagamento_colagem }}</p>
+
+          <hr>
+          <strong>Pagamento garagem</strong>
+            <p>{{ $venda->pagamento_garagem }}</p>
+
+          <hr>
+          <strong>Fluxo</strong>
+            <p>{{ $venda->fluxo }}</p>
+
+          <hr>
+          <strong>Anexo</strong>
+            <p>
+             <a href="{{ $venda->anexo_pdf }}">{{ $venda->anexo_pdf }}</a>
+            </p>
+
+          <hr>
+          <strong>Imagem de comprovação</strong>
+
+            <p>{{ $venda->fluxo }}
+            <img src="{{ $venda->fluxo }}" alt="IMAGEM DE COMPROVAÇÃO">
+            </p>
+
+          <hr>
+          <strong>Status</strong>
+         <p>
+         @if ($venda->status == 'orçamento')
+            <span class="badge bg-success">Orçamento</span>
+          @else
+            <span class="badge bg-danger">Status não especificado correctamente</span>
+          @endif
+            </p>
 
           <hr>
         </div>
@@ -236,9 +270,9 @@
                       <form action="/actualizar_venda/{{$venda->id}}" method="POST" enctype="multipart/form-data">
 
                         @csrf
-                        <div class="mb-4 col-8 inline-block">
+                        <div class="mb-4 col-12 inline-block">
                           <label class="form-label" for="lista_produtos">Lista de produtos</label>
-                          <select class="form-control" name="lista_produtos" id="lista_produtos">
+                          <select class="form-control" name="lista_produtos"  id="lista_produtos">
                             @if ($produtos->isNotEmpty())
                             @foreach ($produtos as $item)
                             <option value="{{ $item->nome }}">{{ $item->nome }}</option>
@@ -248,52 +282,52 @@
                             @endif
                         </select>
                         </div>
-                        <div class="mb-4 col-8 inline-block">
+                        <div class="mb-4 col-12 inline-block">
                             <label class="form-label" for="cpf">Número de P.I</label>
-                            <input type="number" class="form-control" id="numero_pi" required name="numero_pi"  maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
+                            <input type="number" class="form-control" id="numero_pi" required name="numero_pi" value="{{ $venda->numero_pi }}"  maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
                             </div>
-                            <div class="mb-4 col-8 inline-block">
+                            <div class="mb-4 col-12 inline-block">
                               <label class="form-label" for="qtd_parcelas">Quantidade por parcelas</label>
-                              <input type="number" class="form-control" id="dm-ecom-product-name" required name="qtd_parcelas" >
+                              <input type="number" class="form-control" id="dm-ecom-product-name" value="{{ $venda->qtd_parcelas }}" required name="qtd_parcelas" >
                             </div>
-                            <div class="mb-4 col-8 inline-block">
+                            <div class="mb-4 col-12 inline-block">
                               <label class="form-label" for="dm-ecom-product-name">Data de inicio da campanha</label>
-                              <input type="date" class="form-control" id="dm-ecom-product-name" required name="inicio_campanha" >
+                              <input type="date" class="form-control" id="dm-ecom-product-name" required name="inicio_campanha" value="{{ $venda->inicio_campanha }}" >
                             </div>
-                            <div class="mb-4 col-8 inline-block">
+                            <div class="mb-4 col-12 inline-block">
                               <label class="form-label" for="dm-ecom-product-name">Número <small>(NF)</small></label>
-                              <input type="number" class="form-control" id="dm-ecom-product-name" required name="numero_nf" >
+                              <input type="number" class="form-control" id="dm-ecom-product-name" value="{{ $venda->numero_nf }}" required name="numero_nf" >
                             </div>
-                            <div class="mb-4 col-8 inline-block">
+                            <div class="mb-4 col-12 inline-block">
                               <label class="form-label" for="valor_bruto">Valor bruto</label>
-                              <input type="number" class="form-control" id="valor_bruto" required name="valor_bruto" >
+                              <input type="number" class="form-control" id="valor_bruto" value="{{ $venda->valor_bruto }}" required name="valor_bruto" >
                             </div>
-                            <div class="mb-4 col-8 inline-block">
+                            <div class="mb-4 col-12 inline-block">
                               <label class="form-label" for="valor_imposto">Valor imposto</label>
-                              <input type="number" name="valor_imposto" id="valor_imposto" class="form-control">
+                              <input type="number" name="valor_imposto" id="valor_imposto" value="{{ $venda->valor_imposto }}" class="form-control">
                             </div>
-                            <div class="mb-4 col-8 inline-block cep">
+                            <div class="mb-4 col-12 inline-block cep">
                             <label class="form-label" for="dm-ecom-product-name">Valor depositado</label>
-                            <input type="number" class="form-control" id="cep" name="valor_depositado" size="10" maxlength="9" required>
+                            <input type="number" class="form-control" id="cep" name="valor_depositado" value="{{ $venda->valor_depositado }}" size="10" maxlength="9" required>
                             </div>
-                            <div class="mb-4 col-8 inline-block rua">
+                            <div class="mb-4 col-12 inline-block rua">
                                 <label class="form-label" for="pagamento_colagem">Pagamento colagem</label>
-                                <input type="number" class="form-control" id="pagamento_colagem" name="pagamento_colagem"  required>
+                                <input type="number" class="form-control" id="pagamento_colagem" value="{{ $venda->pagamento_colagem }}" name="pagamento_colagem"  required>
                             </div>
 
-                            <div class="mb-4 col-8 inline-block Bairro">
+                            <div class="mb-4 col-12 inline-block Bairro">
                                 <label class="form-label" for="pagamento_garagem">Pagamento garagem</label>
-                                <input type="text" class="form-control" id="pagamento_garagem" name="pagamento_garagem" required>
+                                <input type="text" class="form-control" id="pagamento_garagem" name="pagamento_garagem" value="{{ $venda->pagamento_garagem }}" required>
                             </div>
 
-                            <div class="mb-4 col-8 inline-block Cidade">
+                            <div class="mb-4 col-12 inline-block Cidade">
                                 <label class="form-label" for="fotos_comprovacao">Foto de comprovação</label>
-                                <input type="file" class="form-control" id="fotos_comprovacao" name="fotos_comprovacao" required>
+                                <input type="file" class="form-control" id="fotos_comprovacao" value="{{ $venda->fotos_comprovacao }}" name="fotos_comprovacao" required>
                             </div>
 
-                            <div class="mb-4 col-8 inline-block complemento">
-                                <label class="form-label" for="dm-ecom-product-name">Anexo <small>(PDF)</small></label>
-                                <input type="file" class="form-control" id="dm-ecom-product-name" name="anexo_pdf">
+                            <div class="mb-4 col-12 inline-block complemento">
+                                <label class="form-label" for="anexo_pdf">Anexo <small>(PDF)</small></label>
+                                <input type="file" class="form-control" id="anexo_pdf" value="{{ $venda->anexo_pdf }}" name="anexo_pdf">
                             </div>
 
                         <div class="mb-4">
