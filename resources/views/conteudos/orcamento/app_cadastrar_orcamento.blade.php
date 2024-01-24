@@ -51,7 +51,13 @@
                                 <div class="mb-4 col-5 inline-block">
                                 <label class="form-label" for="cliente_id">Usuário</label>
                                 <select class="form-control" name="cliente_id" id="cliente_id">
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @if ($clientes->isNotEmpty())
+                                    @foreach ($clientes as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nome }}</option>
+                                    @endforeach
+                                    @else
+                                    <option value="" disabled>Nenhum cliente encontrado</option>
+                                    @endif
                                 </select>
                                 </div>
 

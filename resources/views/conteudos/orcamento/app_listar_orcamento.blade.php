@@ -52,7 +52,7 @@
                                 <tr>
                                     <th class="text-center" scope="row">{{ $item->id }}</th>
                                     <td class="fw-semibold">
-                                        <a href="/visualizar_cliente/{{$item->id}}">{{$item->nome_campanha}}</a>
+                                        <a href="/visualizar_orcamento/{{$item->id}}">{{$item->nome_campanha}}</a>
                                     </td>
                                     <td>{{$item->cliente_id}}</td>
                                     <td class="text-center">

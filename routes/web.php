@@ -100,6 +100,7 @@ Route::get('/eliminar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisContr
 Route::post('/actualizar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@update')->middleware('auth');
 Route::post('/salvar_responsavel', 'App\Http\Controllers\ResponsaveisController@store')->middleware('auth');
 
+// ========================= ITINERARIOS ========================
 
 Route::get('/itinerarios', 'App\Http\Controllers\IntinerariosController@index')->middleware('auth');
 Route::get('/registar_itinerario', 'App\Http\Controllers\IntinerariosController@create')->middleware('auth');

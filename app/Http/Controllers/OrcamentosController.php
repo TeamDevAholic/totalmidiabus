@@ -6,6 +6,9 @@ use App\Models\Orcamentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
+use App\Models\Produtos;
+
+use App\Models\Logs;
 use App\Models\Clientes; // Certifique-se de importar o modelo Cliente no início do seu arquivo
 
 class OrcamentosController extends Controller
@@ -29,7 +32,8 @@ class OrcamentosController extends Controller
     {
         //
         $user = Auth::user();
-        return view('conteudos.orcamento.app_cadastrar_orcamento', compact('user'));
+        $clientes = Clientes::all();
+        return view('conteudos.orcamento.app_cadastrar_orcamento', compact('user','clientes'));
     }
 
     /**
@@ -39,23 +43,28 @@ class OrcamentosController extends Controller
 {
     $user = Auth::user();
 
-    // Verifique se há um cliente correspondente ao usuário autenticado
-    $cliente = Clientes::find($user->id);
+    // // Verifique se há um cliente correspondente ao usuário autenticado
+    // $cliente = Clientes::find($user->id);
 
-    if (!$cliente) {
-        // Se não houver cliente correspondente, você pode tratar isso de acordo com a lógica do seu aplicativo
-        // Por exemplo, lançar uma exceção, redirecionar para uma página de erro, etc.
-        // Aqui, eu estou lançando uma exceção como exemplo:
-        throw new \Exception('Cliente não encontrado para o usuário autenticado.');
-    }
+    // if (!$cliente) {
+    //     // Se não houver cliente correspondente, você pode tratar isso de acordo com a lógica do seu aplicativo
+    //     // Por exemplo, lançar uma exceção, redirecionar para uma página de erro, etc.
+    //     // Aqui, eu estou lançando uma exceção como exemplo:
+    //     throw new \Exception('Cliente não encontrado para o usuário autenticado.');
+    // }
 
     $orcamento = new Orcamentos;
-    $orcamento->cliente_id = $cliente->id;
+    $orcamento->cliente_id = $request->cliente_id;
     $orcamento->nome_campanha = $request->nome_campanha;
     $orcamento->save();
 
+    $user_logado = Auth::user();
+    $this->registarLog("Um novo orçamento com o id {$orcamento->id} e nome {$orcamento->nome_campanha} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
     Alert::toast('Orçamento cadastrado com sucesso', 'success');
-    return redirect('/orcamentos');
+
+    $produtos = Produtos::all();
+    return view('conteudos.vendas.app_registar_venda', compact('produtos'));
 }
 
     /**
@@ -64,6 +73,9 @@ class OrcamentosController extends Controller
     public function show(string $id)
     {
         //
+        $cliente = Clientes::all();
+        $orcamento = Orcamentos::find($id);
+        return view('conteudos.orcamento.app_visualizar_orcamento', compact('orcamento','cliente'));
     }
 
     /**
@@ -72,6 +84,10 @@ class OrcamentosController extends Controller
     public function edit(string $id)
     {
         //
+
+        $user = Auth::user();
+        $clientes = Clientes::all();
+        return view('conteudos.orcamento.app_editar_orcamento', compact('user','clientes'));
     }
 
     /**
@@ -80,13 +96,41 @@ class OrcamentosController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $user = Auth::user();
+
+        $orcamento = Orcamentos::find($id);
+        $orcamento->cliente_id = $request->cliente_id;
+        $orcamento->nome_campanha = $request->nome_campanha;
+
+        $orcamento->save();
+
+        $user_logado = Auth::user();
+
+        $this->registarLog("O orçamento com o id {$orcamento->id} e nome {$orcamento->nome} foi editada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+        Alert::toast('Orçamento atualizado com sucesso', 'success');
+
+        return redirect('/orcamentos');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
+        Orcamentos::destroy($id);
+
+        Alert::toast('Registro Eliminado Com Sucesso', 'success');
+
+        return redirect('/orcamentos');
+    }
+    public function registarLog($descricao, $user_id)
+    {
+        $log = new Logs();
+        $log->descricao = $descricao;
+        $log->usuario_id = $user_id;
+        $log->save();
     }
 }
