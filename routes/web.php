@@ -61,7 +61,7 @@ Route::post('/salvar_linha', 'App\Http\Controllers\linhasController@store')->mid
 // ========================= VENDAS ========================
 
 Route::get('/vendas', 'App\Http\Controllers\VendasController@index')->middleware('auth');
-Route::get('/registar_venda', 'App\Http\Controllers\VendasController@create')->middleware('auth');
+Route::get('/registar_venda/{id}', 'App\Http\Controllers\VendasController@create')->middleware('auth');
 Route::get('/editar_venda/{id}', 'App\Http\Controllers\VendasController@edit')->middleware('auth');
 Route::get('/visualizar_venda/{id}', 'App\Http\Controllers\VendasController@show')->middleware('auth');
 Route::get('/eliminar_venda/{id}', 'App\Http\Controllers\VendasController@destroy')->middleware('auth');

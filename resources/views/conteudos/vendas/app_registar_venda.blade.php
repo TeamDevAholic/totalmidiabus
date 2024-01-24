@@ -16,8 +16,8 @@
                 <div class="bg-body-light">
                   <div class="content content-full">
                     <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                      <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Nova Venda</h1>
-
+                      <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Venda</h1>
+                        <h3>Esta venda pertence ao orçamento número {{ $orcamento->id }}</h3>
                     </div>
                   </div>
                 </div>
@@ -35,7 +35,7 @@
                   <i class="fa fa-reply" aria-hidden="true"></i>
                   <span class="d-sm-inline ms-1"></span>
                 </a>
-              <h3 class="block-title">Registar Nova Venda</h3>
+              <h3 class="block-title">Registar Venda</h3>
             </div>
 
             <div class="block-content">
