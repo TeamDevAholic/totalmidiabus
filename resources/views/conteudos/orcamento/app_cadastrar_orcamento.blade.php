@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="mb-4 col-5 inline-block">
-                                <label class="form-label" for="cliente_id">Usuário</label>
+                                <label class="form-label" for="cliente_id">Cliente</label>
                                 <select class="form-control" name="cliente_id" id="cliente_id">
                                     @if ($clientes->isNotEmpty())
                                     @foreach ($clientes as $item)

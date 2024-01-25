@@ -9,6 +9,9 @@ use App\Models\Logs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Alert;
+use App\Models\Clientes;
+use App\Models\ItensVendas;
+use App\Models\Orcamentos;
 use App\Models\Produtos;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,12 +25,26 @@ class VendasController extends Controller
         return view('conteudos.vendas.app_vendas', compact('vendas'));
     }
 
-    public function create()
+    public function create($id)
     {
 
-        $venda = Vendas::all();
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
         $produtos = Produtos::all();
-        return view('conteudos.vendas.app_registar_venda', compact('venda','produtos'));
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
+
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+
+        return view('conteudos.vendas.app_registar_venda', compact('venda','produtos','id'
+                ,'cliente','orcamento','itens_vendas','valor_total'));
     }
     public function createpi1($id){
         $venda = Vendas::find($id);
@@ -39,12 +56,14 @@ class VendasController extends Controller
     public function createpi2($id){
         $venda = Vendas::find($id);
         $produtos = Produtos::all();
+
         return view('conteudos.vendas.app_registar_vendapi2', compact('venda','produtos'));
 
     }
     public function createpi3($id){
         $venda = Vendas::find($id);
         $produtos = Produtos::all();
+
         return view('conteudos.vendas.app_registar_vendapi3', compact('venda','produtos'));
 
     }

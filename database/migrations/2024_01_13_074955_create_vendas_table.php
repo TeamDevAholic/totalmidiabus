@@ -9,9 +9,10 @@ return new class extends Migration
 
     public function up(): void
     {
-        
+
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('orcamento_id')->unsigned();
             $table->text('lista_produtos');
             $table->integer('numero_pi')->nullable();
             $table->integer('qtd_parcelas')->nullable();
@@ -27,6 +28,10 @@ return new class extends Migration
             $table->string('fluxo')->default('vendedor');
             $table->string('status')->default('orçamento');
             $table->timestamps();
+
+            $table->foreign('orcamento_id')
+                ->references('id')
+                ->on('orcamentos');
         });
     }
 

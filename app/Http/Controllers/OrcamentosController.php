@@ -10,6 +10,7 @@ use App\Models\Produtos;
 
 use App\Models\Logs;
 use App\Models\Clientes; // Certifique-se de importar o modelo Cliente no início do seu arquivo
+use App\Models\Vendas;
 
 class OrcamentosController extends Controller
 {
@@ -57,6 +58,26 @@ class OrcamentosController extends Controller
     $orcamento->cliente_id = $request->cliente_id;
     $orcamento->nome_campanha = $request->nome_campanha;
     $orcamento->save();
+
+
+
+    $venda = new Vendas();
+    $venda->orcamento_id = $orcamento->id;
+    $venda->lista_produtos = "";
+    $venda->numero_pi = "0";
+    $venda->qtd_parcelas = "0";
+    $venda->inicio_campanha = null;
+    $venda->anexo_pdf = "";
+    $venda->numero_nf = "";
+    $venda->valor_bruto = null;
+    $venda->valor_imposto = null;
+    $venda->valor_depositado = null;
+    $venda->pagamento_colagem = null;
+    $venda->pagamento_garagem = null;
+    $venda->fotos_comprovacao = null;
+    $venda->fluxo = 'vendedor';
+    $venda->status = 'orçamento';
+    $venda->save();
 
     $user_logado = Auth::user();
     $this->registarLog("Um novo orçamento com o id {$orcamento->id} e nome {$orcamento->nome_campanha} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);

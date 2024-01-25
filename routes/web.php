@@ -105,8 +105,8 @@ Route::get('/itens_vendas', 'App\Http\Controllers\ItensVendasController@index')-
 Route::get('/registar_item_venda', 'App\Http\Controllers\ItensVendasController@create')->middleware('auth');
 Route::get('/editar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@edit')->middleware('auth');
 Route::get('/visualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@show')->middleware('auth');
-Route::get('/eliminar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@destroy')->middleware('auth');
-Route::post('/actualizar_item_venda/{id}', 'App\Http\Controllers\ItensVendasController@update')->middleware('auth');
+Route::delete('/eliminar_item_venda', 'App\Http\Controllers\ItensVendasController@destroy')->middleware('auth');
+Route::post('/actualizar_item_venda', 'App\Http\Controllers\ItensVendasController@update')->middleware('auth');
 Route::post('/salvar_item_venda', 'App\Http\Controllers\ItensVendasController@store')->middleware('auth');
 
 // ========================= RESPONSAVEIS ========================
