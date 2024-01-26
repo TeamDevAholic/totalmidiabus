@@ -72,7 +72,7 @@
               </li>
               @can('pode_registrar_orcamento')
             <li class="nav-main-item">
-                <a class="nav-main-link" href="/buscar_linhas">
+                <a class="nav-main-link" href="/linhas">
                   <span class="nav-main-link-name">Buscar linhas</span>
                 </a>
               </li>
@@ -104,41 +104,31 @@
                 </a>
             </li>
             @endcan
-            <li class="nav-main-item">
+            {{-- <li class="nav-main-item">
                 <a class="nav-main-link" href="/vendas">
                 <i class="nav-main-link-icon fa fa-box"></i>
                 <span class="nav-main-link-name">Vendas
                 </span>
                 </a>
-            </li>
+            </li> --}}
 
           </li>
           @can('pode_visualizar_cadastro_pi_venda')
             <li class="nav-main-item">
-            @can('pode_registrar_cadastro_pi_venda')
-            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-              <i class="nav-main-link-icon fa fa-boxes"></i>
-              <span class="nav-main-link-name">Cadastro pi/venda
-            </span>
-            </a>
-            @endcan
-            @can('pode_visualizar_vendas')
+
             <ul class="nav-main-submenu">
               <li class="nav-main-item">
                 <a class="nav-main-link" href="/listar_vendas">
                   <span class="nav-main-link-name">Listar vendas</span>
                 </a>
               </li>
-              @can('pode_registrar_vendas')
                 <li class="nav-main-item">
                 <a class="nav-main-link" href="/cadastrar_vendas">
                   <span class="nav-main-link-name">Cadastrar</span>
                 </a>
               </li>
-              @endcan
 
             </ul>
-            @endcan
 
           </li>
           @endcan
@@ -191,8 +181,8 @@
 
                     @can('pode_registrar_linhas')
                     <li class="nav-main-item">
-                      <a class="nav-main-link" href="/cadastrar_linhas">
-                        <span class="nav-main-link-name">Cadastrar linhas</span>
+                      <a class="nav-main-link" href="/registar_linha">
+                        <span class="nav-main-link-name">Cadastrar linha</span>
                       </a>
                     </li>
                     @endcan
@@ -204,30 +194,8 @@
                   <span class="nav-main-link-name">Itinerários</span>
                 </a>
               </li>
-              <li class="nav-main-item">
-                <a class="nav-main-link" href="/itens_vendas">
-                  <span class="nav-main-link-name">Itens vendas</span>
-                </a>
-              </li>
-              @can('pode_visualizar_contatos')
-                <li class="nav-main-item">
-                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                    <span class="nav-main-link-name">Contatos</span>
-                  </a>
-                <ul class="nav-main-submenu">
-                    <li class="nav-main-item">
-                      <a class="nav-main-link" href="/listar_contatos">
-                        <span class="nav-main-link-name">Listar contatos</span>
-                      </a>
-                    </li>
-              @endcan
-              @can('pode_registrar_contatos')
-                    <li class="nav-main-item">
-                      <a class="nav-main-link" href="/cadastrar_contatos">
-                        <span class="nav-main-link-name">Cadastrar contatos</span>
-                      </a>
-                    </li>
-              @endcan
+
+
                 </ul>
               </li>
             </ul>
@@ -288,7 +256,7 @@
           @can('pode_visualizar_logs')
             <li class="nav-main-heading">LOGS</li>
           <li class="nav-main-item">
-            <a class="nav-main-link" href="/listar_logs">
+            <a class="nav-main-link" href="/logs">
               <i class="nav-main-link-icon fa fa-wrench"></i>
               <span class="nav-main-link-name">Listar logs</span>
             </a>

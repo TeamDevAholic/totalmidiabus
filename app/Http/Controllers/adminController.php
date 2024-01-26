@@ -567,4 +567,12 @@ class adminController extends Controller
         Alert::toast('Alteração efetuada Com Sucesso', 'success');
         return back();
     }
+
+
+    public function logs()
+    {
+        //
+        $logs = DB::table('logs')->latest()->paginate(30);
+            return view('admin.app_logs', compact('logs'));
+    }
 }

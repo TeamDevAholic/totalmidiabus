@@ -170,7 +170,7 @@
                 <div class="block-content">
                   <div class="row justify-content-center">
                     <div class="col-md-12 col-lg-12">
-                      <form action="/salvar_vendapi2" method="POST" enctype="multipart/form-data">
+                      <form action="/salvar_vendapi" method="POST" enctype="multipart/form-data">
 
                         @csrf
 
@@ -319,7 +319,7 @@
             <div class="modal-content">
                 <form method="post" action="/actualizar_item_venda">
                     @csrf
-                <input type="hidden" name="item_venda_id" value="{{$item->id}}">
+                <input type="hidden" name="item_venda_id" value="{{$venda->id}}">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Editar Item {{$item->id}} </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

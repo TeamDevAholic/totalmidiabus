@@ -157,9 +157,17 @@
               </div>
               <!-- END All Orders Table -->
 
-              <a class="btn  btn-hero btn-success my-2" href="/registar_venda_pi1/{{$id}}" style="margin-right: 10px;">
+              <form action="/salvar_venda" method="POST" enctype="multipart/form-data">
+
+                @csrf
+
+                <input type="hidden" name="orcamento_id" value="{{$id}}">
+                <input type="hidden" name="venda_id" value="{{$venda->id}}">
+
+              <button type="submit" class="btn  btn-hero btn-success my-2" style="margin-right: 10px;">
                 <span class="d-sm-inline ms-1"></span> Próximo Passo >>
-              </a>
+              </button>
+              </form>
 
             </div>
           </div>

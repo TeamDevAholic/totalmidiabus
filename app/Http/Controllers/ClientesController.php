@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Alert;
 use App\Models\Logs;
 
-class clientesController extends Controller
+class ClientesController extends Controller
 {
     public function index()
     {

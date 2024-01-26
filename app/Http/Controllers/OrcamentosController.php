@@ -10,6 +10,7 @@ use App\Models\Produtos;
 
 use App\Models\Logs;
 use App\Models\Clientes; // Certifique-se de importar o modelo Cliente no início do seu arquivo
+use App\Models\ItensVendas;
 use App\Models\Vendas;
 
 class OrcamentosController extends Controller
@@ -75,12 +76,16 @@ class OrcamentosController extends Controller
     $venda->pagamento_colagem = null;
     $venda->pagamento_garagem = null;
     $venda->fotos_comprovacao = null;
-    $venda->fluxo = 'vendedor';
-    $venda->status = 'orçamento';
+    $venda->fluxo = 'Vendedor';
+    $venda->status = 'Orçamento';
     $venda->save();
 
     $user_logado = Auth::user();
     $this->registarLog("Um novo orçamento com o id {$orcamento->id} e nome {$orcamento->nome_campanha} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+
+    $user_logado = Auth::user();
+    $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
     Alert::toast('Orçamento cadastrado com sucesso', 'success');
 
@@ -95,14 +100,17 @@ class OrcamentosController extends Controller
     public function show(string $id)
     {
         //
-        $cliente = Clientes::all();
         $orcamento = Orcamentos::find($id);
-        return view('conteudos.orcamento.app_visualizar_orcamento', compact('orcamento','cliente'));
+        $cliente = Clientes::find($orcamento->cliente_id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $itens_venda = ItensVendas::where('venda_id', $venda->id)->get();
+
+
+
+        return view('conteudos.orcamento.app_visualizar_orcamento', compact('orcamento','cliente','venda','itens_venda'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
@@ -112,9 +120,7 @@ class OrcamentosController extends Controller
         return view('conteudos.orcamento.app_editar_orcamento', compact('user','clientes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         //
