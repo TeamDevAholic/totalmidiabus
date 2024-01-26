@@ -46,33 +46,109 @@ class VendasController extends Controller
         return view('conteudos.vendas.app_registar_venda', compact('venda','produtos','id'
                 ,'cliente','orcamento','itens_vendas','valor_total'));
     }
-    public function createpi1($id){
-        $venda = Vendas::find($id);
-        $produtos = Produtos::all();
+    public function createpi($id){
 
-        return view('conteudos.vendas.app_registar_vendapi1', compact('venda','produtos'));
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
+        $produtos = Produtos::all();
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
+
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+        return view('conteudos.vendas.app_registar_vendapi', compact('venda','produtos','id'
+        ,'cliente','orcamento','itens_vendas','valor_total'));
+
+    }
+    public function createpi1($id){
+
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
+        $produtos = Produtos::all();
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
+
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+        return view('conteudos.vendas.app_registar_vendapi1', compact('venda','produtos','id'
+        ,'cliente','orcamento','itens_vendas','valor_total'));
 
     }
     public function createpi2($id){
-        $venda = Vendas::find($id);
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
         $produtos = Produtos::all();
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
 
-        return view('conteudos.vendas.app_registar_vendapi2', compact('venda','produtos'));
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+        return view('conteudos.vendas.app_registar_vendapi2', compact('venda','produtos','id'
+        ,'cliente','orcamento','itens_vendas','valor_total'));
 
     }
     public function createpi3($id){
-        $venda = Vendas::find($id);
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
         $produtos = Produtos::all();
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
 
-        return view('conteudos.vendas.app_registar_vendapi3', compact('venda','produtos'));
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+                    return view('conteudos.vendas.app_registar_vendapi3', compact('venda','produtos','id'
+                    ,'cliente','orcamento','itens_vendas','valor_total'));
 
     }
     public function store(Request $request)
     {
         $user = Auth::user();
 
-        $venda = new Vendas;
-        $venda->lista_produtos = $request->lista_produtos;
+
+        $orcamento = Orcamentos::find($request->orcamento_id);
+        $venda = Vendas::find($request->venda_id);
+        $venda->fluxo = $request->fluxo ?? 'Financeiro';
+        $venda->status = 'Venda';
+        $venda->save();
+
+        Alert::toast('Venda Atualizada Com Sucesso', 'success');
+
+        $user_logado = Auth::user();
+        $this->registarLog("A venda com o id {$venda->id} foi atualizada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+
+        return redirect('/registar_venda_pi/'.$orcamento->id);
+    }
+    public function storepi(Request $request)
+    {
+        $user = Auth::user();
+
+
+        $orcamento = Orcamentos::find($request->orcamento_id);
+        $venda = Vendas::find($request->venda_id);
         $venda->numero_pi = $request->numero_pi;
         $venda->qtd_parcelas = $request->qtd_parcelas;
         $venda->inicio_campanha = $request->inicio_campanha;
@@ -83,9 +159,9 @@ class VendasController extends Controller
         $venda->valor_depositado = $request->valor_depositado;
         $venda->pagamento_colagem = $request->pagamento_colagem;
         $venda->pagamento_garagem = $request->pagamento_garagem;
-        $venda->fotos_comprovacao = $request->fotos_comprovacao;
-        $venda->fluxo = $request->fluxo ?? 'vendedor';
-        $venda->status = $request->status ?? 'orçamento';
+        $venda->fluxo = $request->fluxo ?? 'Financeiro';
+        $venda->status = 'Aguardando Colagem';
+        $venda->save();
 
 
         if ($request->fotos_comprovacao) {
@@ -120,19 +196,21 @@ class VendasController extends Controller
                         }
 
         $venda->save();
-        Alert::toast('Venda Registrada Com Sucesso', 'success');
+        Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
         $user_logado = Auth::user();
-        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+        $this->registarLog("A venda com o id {$venda->id} foi atualizada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
-        return redirect('/registar_venda_pi1/'.$venda->id);
+        return redirect('/registar_venda_pi1/'.$orcamento->id);
     }
     public function storepi1(Request $request)
     {
         $user = Auth::user();
 
-        $venda = new Vendas;
-        $venda->lista_produtos = $request->lista_produtos;
+
+
+        $orcamento = Orcamentos::find($request->orcamento_id);
+        $venda = Vendas::find($request->venda_id);
         $venda->numero_pi = $request->numero_pi;
         $venda->qtd_parcelas = $request->qtd_parcelas;
         $venda->inicio_campanha = $request->inicio_campanha;
@@ -143,9 +221,8 @@ class VendasController extends Controller
         $venda->valor_depositado = $request->valor_depositado;
         $venda->pagamento_colagem = $request->pagamento_colagem;
         $venda->pagamento_garagem = $request->pagamento_garagem;
-        $venda->fotos_comprovacao = $request->fotos_comprovacao;
-        $venda->fluxo = $request->fluxo ?? 'vendedor';
-        $venda->status = $request->status ?? 'orçamento';
+        $venda->fluxo = $request->fluxo ?? 'Financeiro';
+        $venda->status = 'Aguardando Faturamento';
 
 
         if ($request->fotos_comprovacao) {
@@ -180,19 +257,17 @@ class VendasController extends Controller
                         }
 
         $venda->save();
-        Alert::toast('Venda Registrada Com Sucesso', 'success');
+        Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
         $user_logado = Auth::user();
-        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+        $this->registarLog("A venda com o id {$venda->id} foi atualizada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
-        return redirect('/registar_venda_pi2/'.$venda->id);
+        return redirect('/registar_venda_pi2/'.$orcamento->id);
     }
     public function storepi2(Request $request)
     {
-        $user = Auth::user();
-
-        $venda = new Vendas;
-        $venda->lista_produtos = $request->lista_produtos;
+        $orcamento = Orcamentos::find($request->orcamento_id);
+        $venda = Vendas::find($request->venda_id);
         $venda->numero_pi = $request->numero_pi;
         $venda->qtd_parcelas = $request->qtd_parcelas;
         $venda->inicio_campanha = $request->inicio_campanha;
@@ -203,9 +278,8 @@ class VendasController extends Controller
         $venda->valor_depositado = $request->valor_depositado;
         $venda->pagamento_colagem = $request->pagamento_colagem;
         $venda->pagamento_garagem = $request->pagamento_garagem;
-        $venda->fotos_comprovacao = $request->fotos_comprovacao;
-        $venda->fluxo = $request->fluxo ?? 'vendedor';
-        $venda->status = $request->status ?? 'orçamento';
+        $venda->fluxo = $request->fluxo ?? 'Financeiro';
+        $venda->status = 'Venda Concluida';
 
 
         if ($request->fotos_comprovacao) {
@@ -240,19 +314,19 @@ class VendasController extends Controller
                         }
 
         $venda->save();
-        Alert::toast('Venda Registrada Com Sucesso', 'success');
+        Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
         $user_logado = Auth::user();
-        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+        $this->registarLog("A venda com o id {$venda->id} foi atualizada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
-        return redirect('/registar_venda_pi3/'.$venda->id);
+        return redirect('/registar_venda_pi3/'.$orcamento->id);
     }
     public function storepi3(Request $request)
     {
         $user = Auth::user();
 
-        $venda = new Vendas;
-        $venda->lista_produtos = $request->lista_produtos;
+        $orcamento = Orcamentos::find($request->orcamento_id);
+        $venda = Vendas::find($request->venda_id);
         $venda->numero_pi = $request->numero_pi;
         $venda->qtd_parcelas = $request->qtd_parcelas;
         $venda->inicio_campanha = $request->inicio_campanha;
@@ -263,9 +337,8 @@ class VendasController extends Controller
         $venda->valor_depositado = $request->valor_depositado;
         $venda->pagamento_colagem = $request->pagamento_colagem;
         $venda->pagamento_garagem = $request->pagamento_garagem;
-        $venda->fotos_comprovacao = $request->fotos_comprovacao;
         $venda->fluxo = $request->fluxo ?? 'vendedor';
-        $venda->status = $request->status ?? 'orçamento';
+        $venda->status = 'orçamento';
 
 
         if ($request->fotos_comprovacao) {
@@ -300,10 +373,10 @@ class VendasController extends Controller
                         }
 
         $venda->save();
-        Alert::toast('Fluxo terminado, parabens', 'success');
+        Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
         $user_logado = Auth::user();
-        $this->registarLog("Uma nova venda com o id {$venda->id} foi criada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
+        $this->registarLog("A venda com o id {$venda->id} foi atualizada com sucesso pelo usuário {$user_logado->name}", Auth::user()->id);
 
         return redirect('/orcamentos');
     }
@@ -311,8 +384,25 @@ class VendasController extends Controller
     public function show($id)
     {
         $venda = Vendas::find($id);
-        $produtos = Produtos::all();
-        return view('conteudos.vendas.app_visualizar_venda', compact('venda','produtos'));
+
+        if($venda->status == "Orçamento"){
+            return redirect('/registar_venda/'.$venda->orcamento_id);
+        }
+        if($venda->status == "Venda"){
+            return redirect('/registar_venda_pi/'.$venda->orcamento_id);
+        }
+        if($venda->status == "Aguardando Colagem"){
+            return redirect('/registar_venda_pi1/'.$venda->orcamento_id);
+        }
+        if($venda->status == "Aguardando Faturamento"){
+            return redirect('/registar_venda_pi2/'.$venda->orcamento_id);
+        }
+        if($venda->status == "Venda Concluida"){
+            return redirect('/registar_venda_pi3/'.$venda->orcamento_id);
+        }
+
+        return 'Não conseguimos identificar o status desta venda';
+
     }
 
     public function edit($id)
@@ -340,7 +430,7 @@ class VendasController extends Controller
         $venda->pagamento_garagem = $request->pagamento_garagem;
         $venda->fotos_comprovacao = $request->fotos_comprovacao;
         $venda->fluxo = $request->fluxo ?? 'vendedor';
-        $venda->status = $request->status ?? 'orçamento';
+        $venda->status = 'orçamento';
 
         if ($request->fotos_comprovacao) {
             $fotos_comprovacao = $request->fotos_comprovacao;

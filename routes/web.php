@@ -31,6 +31,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard', 'App\Http\Controllers\adminController@dashboard')->middleware('auth')->middleware('auth');
 Route::get('/logout', 'App\Http\Controllers\adminController@logout')->middleware('auth');
 
+Route::get('/logs', 'App\Http\Controllers\adminController@logs')->middleware('auth')->middleware('auth');
+
 // ========================= REGRAS DO SISTEMA ========================
 
 Route::get('/roles_users','App\Http\Controllers\adminController@roles_users') ->name('roles');
@@ -44,13 +46,13 @@ Route::post('/criar_token_acesso', 'App\Http\Controllers\adminController@criar_t
 
 // ========================= CLIENTES ========================
 
-Route::get('/clientes', 'App\Http\Controllers\clientesController@index')->middleware('auth');
-Route::get('/registar_cliente', 'App\Http\Controllers\clientesController@create')->middleware('auth');
-Route::get('/editar_cliente/{id}', 'App\Http\Controllers\clientesController@edit')->middleware('auth');
-Route::get('/visualizar_cliente/{id}', 'App\Http\Controllers\clientesController@show')->middleware('auth');
-Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\clientesController@destroy')->middleware('auth');
-Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\clientesController@update')->middleware('auth');
-Route::post('/salvar_cliente', 'App\Http\Controllers\clientesController@store')->middleware('auth');
+Route::get('/clientes', 'App\Http\Controllers\ClientesController@index')->middleware('auth');
+Route::get('/registar_cliente', 'App\Http\Controllers\ClientesController@create')->middleware('auth');
+Route::get('/editar_cliente/{id}', 'App\Http\Controllers\ClientesController@edit')->middleware('auth');
+Route::get('/visualizar_cliente/{id}', 'App\Http\Controllers\ClientesController@show')->middleware('auth');
+Route::get('/eliminar_cliente/{id}', 'App\Http\Controllers\ClientesController@destroy')->middleware('auth');
+Route::post('/actualizar_cliente/{id}', 'App\Http\Controllers\ClientesController@update')->middleware('auth');
+Route::post('/salvar_cliente', 'App\Http\Controllers\ClientesController@store')->middleware('auth');
 
 // ========================= LINHAS ========================
 
@@ -66,6 +68,7 @@ Route::post('/salvar_linha', 'App\Http\Controllers\linhasController@store')->mid
 
 Route::get('/vendas', 'App\Http\Controllers\VendasController@index')->middleware('auth');
 Route::get('/registar_venda/{id}', 'App\Http\Controllers\VendasController@create')->middleware('auth');
+Route::get('/registar_venda_pi/{id}', 'App\Http\Controllers\VendasController@createpi')->middleware('auth');
 Route::get('/registar_venda_pi1/{id}', 'App\Http\Controllers\VendasController@createpi1')->middleware('auth');
 Route::get('/registar_venda_pi2/{id}', 'App\Http\Controllers\VendasController@createpi2')->middleware('auth');
 Route::get('/registar_venda_pi3/{id}', 'App\Http\Controllers\VendasController@createpi3')->middleware('auth');
@@ -75,6 +78,7 @@ Route::get('/visualizar_venda/{id}', 'App\Http\Controllers\VendasController@show
 Route::get('/eliminar_venda/{id}', 'App\Http\Controllers\VendasController@destroy')->middleware('auth');
 Route::post('/actualizar_venda/{id}', 'App\Http\Controllers\VendasController@update')->middleware('auth');
 Route::post('/salvar_venda', 'App\Http\Controllers\VendasController@store')->middleware('auth');
+Route::post('/salvar_vendapi', 'App\Http\Controllers\VendasController@storepi')->middleware('auth');
 Route::post('/salvar_vendapi1', 'App\Http\Controllers\VendasController@storepi1')->middleware('auth');
 Route::post('/salvar_vendapi2', 'App\Http\Controllers\VendasController@storepi2')->middleware('auth');
 Route::post('/salvar_vendapi3', 'App\Http\Controllers\VendasController@storepi3')->middleware('auth');
