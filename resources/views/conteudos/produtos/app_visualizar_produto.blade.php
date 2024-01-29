@@ -1,370 +1,93 @@
 @extends('layouts.app')
-
+@section('title', '| Visualizar produto')
 @section('content')
 
-
-      <!-- Main Container -->
-      <main id="main-container">
-<center>
-  @if (session('erro'))
-  <div class="alert alert-danger">
-    {{ session('erro') }}
-  </div>
-  @endif
-</center>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-<div class="container  bg-light text-center" style="margin-top: 5%;">
-
-  <div class="py-2">
-    <h1 class="fw-bold text-dark  ">
-      {{$produto->nome}}
-    </h1>
-  </div>
-  <div style=" margin-left:73%; margin-top: -5%;">
-    <a class="btn btn-hero btn-primary" href="/editar_produto/{{$produto->id}}" data-toggle="click-ripple">
-      <i class="fa fa-pencil-alt"></i>
-    </a>
-    <a class="btn btn-hero btn-primary" href="#" onclick="confirmarEliminar({{$produto->id}})" data-toggle="click-ripple">
-      <i class="fa fa-trash"></i>
-  </a>
-    <a class="btn  btn-hero btn-primary my-2" href="/produtos">
-      <i class="fa fa-reply" aria-hidden="true"></i>
-      <span class="d-sm-inline ms-1"></span>
-    </a>
-  </div>
-<div class="row">
-    <div class="col-md-3">
-
-      <!-- Profile Image -->
-      <div class="card card-primary card-outline">
-        <div class="card-body box-profile">
-          <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle"
-                 src="{{asset('media/avatars/avatar0.jpg')}}"
-                 alt="User profile picture">
-          </div>
-
-          <h3 class="profile-username text-center">{{ $produto->nome }}</h3>
-
-          <p class="text-muted text-center">{{ $produto->complemento }}</p>
-
-          <ul class="list-group list-group-unbordered mb-3">
-            <li class="list-group-item">
-              <b>Preço: </b> {{ $produto->preco }}
-            </li>
-            <li class="list-group-item">
-              <b>Descrição: </b> {{ $produto->descricao }}
-            </li>
-          </ul>
-
-          <a href="/editar_produto/{{$produto->id}}" class="btn btn-primary btn-block"><b>Editar</b></a>
+ <!-- Main Container -->
+ <main id="main-container">
+    <!-- Page Content -->
+    <div class="content">
+      <!-- Quick Actions -->
+      <div class="row items-push">
+        <div class="col-6">
+          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/editar_produto/{{$produto->id}}">
+            <div class="block-content py-5">
+              <div class="fs-3 fw-semibold mb-1">
+                <i class="fa fa-pencil-alt"></i>
+              </div>
+              <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
+                Editar produto
+              </p>
+            </div>
+          </a>
         </div>
-        <!-- /.card-body -->
+        <div class="col-6">
+          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="#" onclick="confirmarEliminar({{$produto->id}})" data-toggle="click-ripple">
+            <div class="block-content py-5">
+              <div class="fs-3 fw-semibold text-danger mb-1">
+                <i class="fa fa-times"></i>
+              </div>
+              <p class="fw-semibold fs-sm text-danger text-uppercase mb-0">
+                Eliminar produto
+              </p>
+            </div>
+          </a>
+        </div>
       </div>
-      <!-- /.card -->
+      <!-- END Quick Actions -->
 
-      <!-- About Me Box -->
-      <div class="card card-primary">
-        <div class="card-header">
-          <h5 class="card-title">Mais informações do produto</h5>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <strong><i class="fab fa-active mr-1"></i> Status</strong>
+      <!-- User Info -->
+      <div class="block block-rounded">
 
-          <p class="text-muted">
-            @if ($produto->status = 1)
+        <div class="block-content text-center">
+
+          <div class="py-4">
+            <div class="mb-3">
+              <img class="img-avatar img-avatar96" src="/media/avatars/avatar15.jpg" alt="">
+            </div>
+            <h1 class="fs-lg mb-0">
+                Nome do produto: {{ $produto->nome }}
+            </h1>
+            <p class="text-muted">
+              <i class="fa fa-award text-warning me-1"></i>
+              Status: @if ($produto->status = 1)
                 <span class="badge bg-success">Ativo</span>
-                @else
-                <span class="badge bg-danger">Inativo</span>
-            @endif
-          </p>
-
-          <hr>
-
-          <strong>  Descrição</strong>
-
-          <p class="text-muted">{{ $produto->descricao }}</p>
-
-          <hr>
+              @else
+              <span class="badge bg-danger">Inativo</span>
+              @endif
+            </p>
+          </div>
+          <br>
 
         </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-    <!-- /.col -->
-    <div class="col-md-9">
-      <div class="card">
-        <div class="card-header p-2">
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Atividades</a></li>
-            <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Logs</a></li>
-            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Editar</a></li>
-          </ul>
-        </div><!-- /.card-header -->
-        <div class="card-body">
-          <div class="tab-content">
-            <div class="active tab-pane" id="activity">
-              <!-- Post -->
-              <div class="post">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                  <span class="username">
-                    <a href="#">Jonathan Burke Jr.</a>
-                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                  </span>
-                  <span class="description">Shared publicly - 7:30 PM today</span>
-                </div>
-                <!-- /.user-block -->
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-
-                <p>
-                  <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                  <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                  <span class="float-right">
-                    <a href="#" class="link-black text-sm">
-                      <i class="far fa-comments mr-1"></i> Comments (5)
-                    </a>
-                  </span>
-                </p>
-
-                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-              </div>
-              <!-- /.post -->
-
-              <!-- Post -->
-              <div class="post clearfix">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Sarah Ross</a>
-                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                  </span>
-                  <span class="description">Sent you a message - 3 days ago</span>
-                </div>
-                <!-- /.user-block -->
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-
-                <form class="form-horizontal">
-                  <div class="input-group input-group-sm mb-0">
-                    <input class="form-control form-control-sm" placeholder="Response">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-danger">Send</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- /.post -->
-
-              <!-- Post -->
-              <div class="post">
-                <div class="user-block">
-                  <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Adam Jones</a>
-                    <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                  </span>
-                  <span class="description">Posted 5 photos - 5 days ago</span>
-                </div>
-                <!-- /.user-block -->
-                <div class="row mb-3">
-                  <div class="col-sm-6">
-                    <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-6">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-                        <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-                      </div>
-                      <!-- /.col -->
-                      <div class="col-sm-6">
-                        <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-                        <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                      </div>
-                      <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-
-                <p>
-                  <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                  <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                  <span class="float-right">
-                    <a href="#" class="link-black text-sm">
-                      <i class="far fa-comments mr-1"></i> Comments (5)
-                    </a>
-                  </span>
-                </p>
-
-                <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-              </div>
-              <!-- /.post -->
+        <div class="block-content bg-body-light text-center">
+          <div class="row items-push text-uppercase">
+            <div class="col-6 col-md-4">
+              <div class="fw-semibold text-dark mb-1">ID do produto</div>
+              <a class="link-fx fs-3" href="javascript:void(0)">{{ $produto->id }}</a>
             </div>
-            <!-- /.tab-pane -->
-            <div class="tab-pane" id="timeline">
-              <!-- The timeline -->
-              <div class="timeline timeline-inverse">
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-danger">
-                    10 Feb. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-envelope bg-primary"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                    <div class="timeline-body">
-                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                      weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                      jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                      quora plaxo ideeli hulu weebly balihoo...
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                      <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-user bg-info"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                    <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                    </h3>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-comments bg-warning"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                    <div class="timeline-body">
-                      Take me to your leader!
-                      Switzerland is small and neutral!
-                      We are more like Germany, ambitious and misunderstood!
-                    </div>
-                    <div class="timeline-footer">
-                      <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <!-- timeline time label -->
-                <div class="time-label">
-                  <span class="bg-success">
-                    3 Jan. 2014
-                  </span>
-                </div>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <div>
-                  <i class="fas fa-camera bg-purple"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                    <div class="timeline-body">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                      <img src="https://placehold.it/150x100" alt="...">
-                    </div>
-                  </div>
-                </div>
-                <!-- END timeline item -->
-                <div>
-                  <i class="far fa-clock bg-gray"></i>
-                </div>
-              </div>
-            </div>
-            <!-- /.tab-pane -->
-
-            <div class="tab-pane" id="settings">
-                <h2 class="content-heading">Faça as alterações necessárias</h2>
-
-                <div class="row">
-                  <div class="col-lg-8 space-y-2">
-
-                      <!-- Form Inline - Alternative Style -->
-                      <form action="/actualizar_produto/{{$produto->id}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-4 col-9 inline-block">
-                          <label class="form-label" for="nome">Nome do Produto</label>
-                          <input type="text" class="form-control" id="nome" required name="nome" value="{{$produto->nome}}">
-                        </div>
-
-                        <div class="mb-4 col-9 inline-block complemento">
-                            <label class="form-label" for="preco">Preço</label>
-                            <input type="text" class="form-control" id="preco" name="preco" value="{{$produto->preco ?? ''}}">
-                        </div>
-                        <div class="mb-4 col-9 inline-block complemento">
-                            <label class="form-label" for="descricao">Descrição</label>
-                            <textarea name="descricao" class="form-control" id="descricao" cols="10" style="resize: none;" rows="5">{{$produto->descricao}}</textarea>
-                        </div>
-
-                        <div class="mb-4">
-                          <button type="submit" class="btn btn-primary">Salvar</button>
-                        </div>
-                      </form>
-                      <!-- END Form Inline - Alternative Style -->
-                  </div>
-              </div>
-
-
+            <div class="col-6 col-md-4">
+              <div class="fw-semibold text-dark mb-1">Descrição</div>
+              <a class="link-fx fs-3" href="javascript:void(0)">{{$produto->descricao ?? ''}}</a>
             </div>
 
-            </div>
-            <!-- /.tab-pane -->
           </div>
-          <!-- /.tab-content -->
-        </div><!-- /.card-body -->
+
+        </div>
       </div>
-      <!-- /.card -->
+      <!-- END User Info -->
+
+
+
+      <!-- END Private Notes -->
     </div>
-    <!-- /.col -->
-  </div>
+    <!-- END Page Content -->
+  </main>
 
-</div>
-
-
-</main>
 
 
 <script>
