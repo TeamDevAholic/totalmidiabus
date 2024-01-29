@@ -494,7 +494,7 @@
                 window.location.href = "/eliminar_cliente/" + clienteId;
             }
         });
-    }
+}
 
   $(document).ready(function() {
     // Handle click event for Timeline tab

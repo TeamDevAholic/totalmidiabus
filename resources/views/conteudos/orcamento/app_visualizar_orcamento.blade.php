@@ -14,7 +14,7 @@
       <!-- Quick Actions -->
       <div class="row items-push">
         <div class="col-6">
-          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
+          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/editar_orcamento/{{$orcamento->id}}">
             <div class="block-content py-5">
               <div class="fs-3 fw-semibold mb-1">
                 <i class="fa fa-pencil-alt"></i>
@@ -26,7 +26,7 @@
           </a>
         </div>
         <div class="col-6">
-          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
+          <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="#" onclick="confirmarEliminar({{$orcamento->id}})" data-toggle="click-ripple">
             <div class="block-content py-5">
               <div class="fs-3 fw-semibold text-danger mb-1">
                 <i class="fa fa-times"></i>
@@ -159,5 +159,22 @@
     <!-- END Page Content -->
   </main>
   <!-- END Main Container -->
+<script>
 
+   function confirmarEliminar(orcamentoId) {
+        Swal.fire({
+            title: 'Confirmar Eliminar',
+            text: 'Tem certeza de que deseja eliminar este orçamento?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, Eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/eliminar_orcamento/" + orcamentoId;
+            }
+        });
+}
+</script>
 @endsection

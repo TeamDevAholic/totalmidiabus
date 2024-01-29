@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->foreign('orcamento_id')
                 ->references('id')
-                ->on('orcamentos');
+                ->on('orcamentos')->onDelete('cascade');
             $table->foreign('venda_id')
                 ->references('id')
                 ->on('vendas');
