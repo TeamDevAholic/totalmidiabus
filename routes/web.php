@@ -103,6 +103,17 @@ Route::get('/eliminar_produto/{id}', 'App\Http\Controllers\ProdutosController@de
 Route::post('/actualizar_produto/{id}', 'App\Http\Controllers\ProdutosController@update')->middleware('auth');
 Route::post('/salvar_produto', 'App\Http\Controllers\ProdutosController@store')->middleware('auth');
 
+
+// ========================= setores ========================
+
+Route::get('/setores', 'App\Http\Controllers\SetoresController@index')->middleware('auth');
+Route::get('/registar_setor', 'App\Http\Controllers\SetoresController@create')->middleware('auth');
+Route::get('/editar_setor/{id}', 'App\Http\Controllers\SetoresController@edit')->middleware('auth');
+Route::get('/visualizar_setor/{id}', 'App\Http\Controllers\SetoresController@show')->middleware('auth');
+Route::get('/eliminar_setor/{id}', 'App\Http\Controllers\SetoresController@destroy')->middleware('auth');
+Route::post('/actualizar_setor/{id}', 'App\Http\Controllers\SetoresController@update')->middleware('auth');
+Route::post('/salvar_setor', 'App\Http\Controllers\SetoresController@store')->middleware('auth');
+
 // ========================= ITENS DE VENDAS ========================
 
 Route::get('/itens_vendas', 'App\Http\Controllers\ItensVendasController@index')->middleware('auth');
@@ -122,6 +133,7 @@ Route::get('/visualizar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisCon
 Route::get('/eliminar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@destroy')->middleware('auth');
 Route::post('/actualizar_responsavel/{id}', 'App\Http\Controllers\ResponsaveisController@update')->middleware('auth');
 Route::post('/salvar_responsavel', 'App\Http\Controllers\ResponsaveisController@store')->middleware('auth');
+Route::get('/filtrar_responsaveis_por_setor/{id}', 'App\Http\Controllers\ResponsaveisController@filtrar_responsaveis_por_setor')->middleware('auth');
 
 // ========================= ITINERARIOS ========================
 
@@ -143,6 +155,7 @@ Route::get('/visualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosControl
 Route::get('/eliminar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@destroy')->middleware('auth');
 Route::post('/actualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@update')->middleware('auth');
 Route::post('/salvar_orcamento', 'App\Http\Controllers\OrcamentosController@store')->middleware('auth');
+Route::post('/imprimir_orcamento', 'App\Http\Controllers\OrcamentosController@imprimir_orcamento')->middleware('auth');
 
 // ========================= EMPRESAS ========================
 

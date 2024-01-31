@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('linhas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero_linha', 20)->unique();
+            $table->string('numero_linha', 20);
             $table->string('municipio', 100);
-            $table->string('nome', 50)->unique();
+            $table->string('nome', 50);
             $table->integer('empresa_id');
+            $table->text('itinerarios');
             $table->timestamps();
         });
     }

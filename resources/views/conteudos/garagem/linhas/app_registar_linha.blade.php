@@ -45,19 +45,19 @@
                     @csrf
                     <div class="mb-4 col-8 inline-block">
                       <label class="form-label" for="nome">Nome</label>
-                      <input type="text" name="nome" class="form-control" id="nome">
+                      <input type="text" name="nome" class="form-control" id="nome" required>
                     </div>
                     <div class="mb-4 col-8 inline-block">
                       <label class="form-label" for="numero_linha">Número da linha</label>
-                      <input type="number" name="numero_linha" class="form-control" id="numero_linha">
+                      <input type="number" name="numero_linha" class="form-control" id="numero_linha" required>
                     </div>
                     <div class="mb-4 col-8 inline-block">
                         <label class="form-label" for="municipio">Município</label>
-                      <input type="text" name="municipio" id="municipio" class="form-control">
+                      <input type="text" name="municipio" id="municipio" class="form-control" required>
                     </div>
                         <div class="mb-4 col-8 inline-block cep">
                         <label class="form-label" for="empresa_id">Empresa</label>
-                        <select name="empresa_id" id="empresa_id" class="form-control">
+                        <select name="empresa_id" id="empresa_id" class="form-control" required>
                             @if ($empresa->isNotEmpty())
                             @foreach ($empresa as $item)
                             <option value="{{ $item->id }}">{{ $item->nome }}</option>
@@ -67,6 +67,10 @@
                             @endif
                            </select>
                         </div>
+                        <div class="mb-4 col-8 inline-block">
+                            <label class="form-label" for="numero_linha">Itinerários</label>
+                            <textarea class="form-control" name="itinerarios" id="" cols="30" rows="10" required></textarea>
+                          </div>
 
                     <div class="mb-4">
                       <button type="submit" class="btn btn-primary">Salvar</button>

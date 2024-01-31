@@ -48,16 +48,12 @@
                       <input type="text" class="form-control" id="dm-ecom-product-name" required name="nome" value="">
                     </div>
                     <div class="mb-4 col-5 inline-block">
-                        <label class="form-label" for="cpf">CPF</label>
-                        <input type="text" class="form-control" id="cpf" required name="cpf" value="{{$cliente->cpf ?? ''}}" maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
+                        <label class="form-label" for="cnpj">CNPJ</label>
+                        <input type="text" class="form-control" id="cnpj" required name="cnpj" value="{{$cliente->cnpj ?? ''}}" maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
                         </div>
                         <div class="mb-4 col-5 inline-block">
                           <label class="form-label" for="dm-ecom-product-name">Data de Nascimento</label>
                           <input type="date" class="form-control" id="dm-ecom-product-name" required name="data_nascimento" value="{{$cliente->data_nascimento ?? ''}}">
-                        </div>
-                        <div class="mb-4 col-5 inline-block">
-                          <label class="form-label" for="dm-ecom-product-name">RG</label>
-                          <input type="text" class="form-control" id="dm-ecom-product-name" required name="rg" value="{{$cliente->rg ?? ''}}">
                         </div>
                         <div class="mb-4 col-5 inline-block">
                           <label class="form-label" for="dm-ecom-product-name">Email</label>
@@ -66,15 +62,6 @@
                         <div class="mb-4 col-5 inline-block">
                           <label class="form-label" for="dm-ecom-product-name">Whatsapp</label>
                           <input type="text" class="form-control" id="dm-ecom-product-name" required name="whatsapp" value="{{$cliente->whatsapp ?? ''}}">
-                        </div>
-                        <div class="mb-4 col-5 inline-block">
-                          <label class="form-label" for="dm-ecom-product-name">Gênero</label>
-                          <select class="form-control" name="genero" id="genero">
-                              <option value="1">Masculino</option>
-                              <option value="2">Feminino</option>
-                              <option value="3">Não Informar</option>
-                              <option value="4">Outro</option>
-                          </select>
                         </div>
                         <div class="mb-4 col-5 inline-block cep">
                         <label class="form-label" for="dm-ecom-product-name">CEP</label>

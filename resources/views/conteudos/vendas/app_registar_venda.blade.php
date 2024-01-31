@@ -36,14 +36,20 @@
 
   <div class="block block-rounded">
     <div class="block-content block-content-full">
+
+        <form action="/imprimir_orcamento" method="POST">
+            @csrf
+
+            <input type="hidden" name="orcamento_id" value="{{$orcamento->id}}">
+            <input type="hidden" name="venda_id" value="{{$venda->id}}">
+            <button type="submit" class="btn btn-hero btn-success my-2" style="margin-right: 10px;">
+                <span class="d-sm-inline ms-1"></span> Imprimir Orçamento
+            </button>
+        </form>
       <div class="d-sm-flex">
         <div class="ms-sm-2 me-sm-4 py-2 text-center">
-          <a class="item item-rounded bg-body-dark text-dark fs-2 mb-2 " style="margin-left: 15px;" href="javascript:void(0)">
-
-
-
-          </a>
-
+          {{-- <a class="item item-rounded bg-body-dark text-dark fs-2 mb-2 " style="margin-left: 15px;" href="javascript:void(0)">
+          </a> --}}
         </div>
         <div class="py-2">
           <p class="link-fx h4 mb-1 d-inline-block text-dark" >
@@ -61,8 +67,15 @@
           </p>
 
         </div>
+
+
       </div>
+
+
     </div>
+    <center>
+        <p>Descrição:  {{$orcamento->descricao}} </p>
+    </center>
   </div>
 
 
@@ -119,11 +132,12 @@
                         <a class="fw-semibold" href="be_pages_ecom_customer.html">{{$item->qtd_produto}}</a>
                       </td>
                       <td class="d-none d-xl-table-cell text-center">
-                        <a class="fw-semibold" href="be_pages_ecom_order.html">{{$item->data_inicio}}</a>
-                      </td>
-                      <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->data_final}}</strong>
-                      </td>
+                        <a class="fw-semibold" href="be_pages_ecom_order.html">{{ \Carbon\Carbon::parse($item->data_inicio)->format('d-m-Y') }}</a>
+                    </td>
+                    <td class="d-none d-sm-table-cell text-end">
+                        <strong>{{ \Carbon\Carbon::parse($item->data_final)->format('d-m-Y') }}</strong>
+                    </td>
+
                       <td class="d-none d-sm-table-cell text-end">
                         <strong>{{$item->valor}}</strong>
                       </td>

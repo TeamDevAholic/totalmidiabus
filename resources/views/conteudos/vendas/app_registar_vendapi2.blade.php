@@ -125,11 +125,12 @@
                         <a class="fw-semibold" href="be_pages_ecom_customer.html">{{$item->qtd_produto}}</a>
                       </td>
                       <td class="d-none d-xl-table-cell text-center">
-                        <a class="fw-semibold" href="be_pages_ecom_order.html">{{$item->data_inicio}}</a>
-                      </td>
-                      <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->data_final}}</strong>
-                      </td>
+                        <a class="fw-semibold" href="be_pages_ecom_order.html">{{ \Carbon\Carbon::parse($item->data_inicio)->format('d-m-Y') }}</a>
+                    </td>
+                    <td class="d-none d-sm-table-cell text-end">
+                        <strong>{{ \Carbon\Carbon::parse($item->data_final)->format('d-m-Y') }}</strong>
+                    </td>
+
                       <td class="d-none d-sm-table-cell text-end">
                         <strong>{{$item->valor}}</strong>
                       </td>
@@ -195,21 +196,21 @@
                               <input type="number" class="form-control" id="dm-ecom-product-name" required value="{{ $venda->numero_nf }}" name="numero_nf" >
                             </div>
                             <div class="mb-4 col-5 inline-block">
-                              <label class="form-label" for="valor_bruto">Valor bruto</label>
-                              <input type="number" class="form-control" id="valor_bruto" required value="{{ $venda->valor_bruto }}" name="valor_bruto" >
-                            </div>
-                            <div class="mb-4 col-5 inline-block">
-                              <label class="form-label" for="valor_imposto">Valor imposto</label>
-                              <input type="number" name="valor_imposto" id="valor_imposto" value="{{ $venda->valor_imposto }}" class="form-control">
-                            </div>
-                            <div class="mb-4 col-5 inline-block cep">
-                            <label class="form-label" for="dm-ecom-product-name">Valor depositado</label>
-                            <input type="number" class="form-control" id="cep" value="{{ $venda->valor_depositado }}" name="valor_depositado" size="10" maxlength="9" required>
-                            </div>
-                            <div class="mb-4 col-5 inline-block rua">
-                                <label class="form-label" for="pagamento_colagem">Pagamento colagem</label>
-                                <input type="number" class="form-control" id="pagamento_colagem" value="{{ $venda->pagamento_colagem }}" name="pagamento_colagem"  required>
-                            </div>
+                                <label class="form-label" for="valor_bruto">Valor bruto</label>
+                                <input type="number" class="form-control" id="valor_bruto" required value="{{ $valor_total }}" name="valor_bruto" readonly>
+                              </div>
+                              <div class="mb-4 col-5 inline-block">
+                                <label class="form-label" for="valor_imposto">Valor imposto</label>
+                                <input type="number" name="valor_imposto" id="valor_imposto" value="{{ $venda->valor_imposto }}" class="form-control">
+                              </div>
+                              <div class="mb-4 col-5 inline-block cep">
+                              <label class="form-label" for="dm-ecom-product-name">Valor depositado</label>
+                              <input type="number" class="form-control" id="cep" value="{{ $venda->valor_depositado }}" name="valor_depositado" size="10" maxlength="9" required>
+                              </div>
+                              <div class="mb-4 col-5 inline-block rua">
+                                  <label class="form-label" for="pagamento_colagem">Pagamento colagem</label>
+                                  <input type="number" class="form-control" id="pagamento_colagem" value="{{ $custo_colagem_total }}" name="pagamento_colagem" readonly required>
+                              </div>
 
                             <div class="mb-4 col-5 inline-block Bairro">
                                 <label class="form-label" for="pagamento_garagem">Pagamento garagem</label>
@@ -224,6 +225,11 @@
                             <div class="mb-4 col-5 inline-block complemento">
                                 <label class="form-label" for="anexo_pdf">Anexo <small>(PDF)</small></label>
                                 <input type="file" class="form-control" value="{{ $venda->anexo_pdf }}" id="anexo_pdf" name="anexo_pdf">
+                            </div>
+
+                            <div class="mb-4 col-5 inline-block complemento">
+                                <label class="form-label" for="anexo_nf">Anexo <small>(NF)</small></label>
+                                <input type="file" class="form-control" value="{{ $venda->anexo_nf }}" id="anexo_nf" name="anexo_nf">
                             </div>
 
                             <input type="hidden" name="fluxo" value="Financeiro">

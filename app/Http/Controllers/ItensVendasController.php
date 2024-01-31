@@ -18,7 +18,7 @@ class ItensVendasController extends Controller
 {
     public function index()
     {
-        $itensVendas = ItensVendas::all();
+        $itensVendas = ItensVendas::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.garagem.itens_vendas.app_itens_vendas', compact('itensVendas'));
     }

@@ -17,7 +17,7 @@ class linhasController extends Controller
 {
     public function index()
     {
-        $linhas = Linhas::all();
+        $linhas = Linhas::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.garagem.linhas.app_linhas', compact('linhas'));
     }
@@ -37,6 +37,7 @@ class linhasController extends Controller
         $linha->municipio = $request->municipio;
         $linha->nome = $request->nome;
         $linha->empresa_id = $request->empresa_id;
+        $linha->itinerarios = $request->itinerarios;
 
         $linha->save();
 
@@ -71,6 +72,7 @@ class linhasController extends Controller
         $linha->municipio = $request->municipio;
         $linha->nome = $request->nome;
         $linha->empresa_id = $request->empresa_id;
+        $linha->itinerarios = $request->itinerarios;
 
         $linha->save();
 

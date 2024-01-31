@@ -9,6 +9,7 @@ use App\Models\Empresas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Alert;
+use App\Models\Setores;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -16,15 +17,17 @@ class ResponsaveisController extends Controller
 {
     public function index()
     {
-        $responsaveis = Responsaveis::all();
+        $responsaveis = Responsaveis::orderBy('created_at', 'desc')->get();
+        $setores = Setores::all();
 
-        return view('conteudos.responsaveis.app_responsaveis', compact('responsaveis'));
+        return view('conteudos.responsaveis.app_responsaveis', compact('responsaveis','setores'));
     }
 
     public function create()
     {
         $empresa = Empresas::all();
-        return view('conteudos.responsaveis.app_registar_responsavel', compact('empresa'));
+        $setores = Setores::all();
+        return view('conteudos.responsaveis.app_registar_responsavel', compact('empresa','setores'));
     }
 
     public function store(Request $request)
@@ -61,7 +64,8 @@ class ResponsaveisController extends Controller
     {
         $responsavel = Responsaveis::find($id);
         $empresa = Empresas::all();
-        return view('conteudos.responsaveis.app_editar_responsavel', compact('responsavel','empresa'));
+        $setores = Setores::all();
+        return view('conteudos.responsaveis.app_editar_responsavel', compact('responsavel','empresa','setores'));
     }
 
     public function update(Request $request, $id)
@@ -106,5 +110,14 @@ class ResponsaveisController extends Controller
         $log->descricao = $descricao;
         $log->usuario_id = $user_id;
         $log->save();
+    }
+
+
+    public function filtrar_responsaveis_por_setor($id)
+    {
+        $responsaveis = Responsaveis::where('setor', $id)->get();
+        $setores = Setores::all();
+
+        return view('conteudos.responsaveis.app_responsaveis', compact('responsaveis','setores'));
     }
 }

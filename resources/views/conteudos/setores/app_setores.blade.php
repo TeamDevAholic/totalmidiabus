@@ -17,7 +17,7 @@
         <div class="bg-body-light">
           <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-              <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Produtos</h1>
+              <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">setores</h1>
 
             </div>
           </div>
@@ -26,13 +26,13 @@
 
         <!-- Page Content -->
         <div class="content">
-            @if ($produtos->isNotEmpty())
-            <a style="margin-bottom: 10px;" href="/registar_produto" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
+            @if ($setores->isNotEmpty())
+            <a style="margin-bottom: 10px;" href="/registar_setor" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
 
             <div class="col-md-12">
                 <div class="block block-themed">
                   <div class="block-header bg-gd-sun">
-                    <h3 class="block-title">Listagem de todos os produtos</h3>
+                    <h3 class="block-title">Listagem de todos os setores</h3>
 
                   </div>
                     <div class="block-content">
@@ -43,34 +43,25 @@
                                 <tr>
                                     <th class="text-center" style="width: 50px;">#</th>
                                     <th>Nome</th>
-                                    <th>Preço</th>
                                     <th>Descrição</th>
-                                    <th>Status</th>
                                     <th class="text-center" style="width: 100px;">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($produtos as $item)
+                                @foreach ($setores as $item)
                                 <tr>
                                     <th class="text-center" scope="row">{{ $item->id }}</th>
                                     <td class="fw-semibold">
-                                        <a href="/visualizar_produto/{{$item->id}}">{{$item->nome}}</a>
+                                        <a href="/visualizar_setor/{{$item->id}}">{{$item->nome}}</a>
                                     </td>
-                                    <td>{{ 'R$ ' . number_format($item->preco, 2, ',', '.') }}</td>
                                     <td>{{$item->descricao}}</td>
-                                    <td>
-                                    @if ($item->status = 1)
-                                    <span class="badge bg-success">Ativo</span>
-                                    @else
-                                    <span class="badge bg-danger">Inativo</span>
-                                    @endif
-                                   </td>
+
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a href="/visualizar_produto/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">
+                                            <a href="/visualizar_setor/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar produto" onclick="confirmarApagar({{$item->id}})">
+                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar setor" onclick="confirmarApagar({{$item->id}})">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </div>
@@ -86,19 +77,19 @@
             @else
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <h3 class="alert-heading fs-4 my-2">Desculpe!</h3>
-                <p class="mb-0">Não existe nenhum produto cadastrado no sistema!</p>
+                <p class="mb-0">Não existe nenhum setor cadastrado no sistema!</p>
               </div>
-              <a href="/registar_produto" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
+              <a href="/registar_setor" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
             @endif
 
         </div>
       </main>
 <!-- Adicione o seguinte script para definir a função confirmarApagar -->
 <script>
-    function confirmarApagar(produtoId) {
+    function confirmarApagar(setorId) {
         Swal.fire({
             title: 'Confirmar Ação',
-            text: 'Tem certeza de que deseja apagar este produto?',
+            text: 'Tem certeza de que deseja apagar este setor?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -106,7 +97,7 @@
             confirmButtonText: 'Sim, Apagar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminar_produto/" + produtoId;
+                window.location.href = "/eliminar_setor/" + setorId;
             }
         });
     }

@@ -49,7 +49,7 @@
       <div class="content-side">
         <ul class="nav-main">
           <li class="nav-main-item">
-            <a class="nav-main-link" href="/">
+            <a class="nav-main-link" href="/home">
               <i class="nav-main-link-icon fa fa-location-arrow"></i>
               <span class="nav-main-link-name">Dashboard</span>
               <span class="nav-main-link-badge badge rounded-pill bg-primary">8</span>
@@ -92,6 +92,13 @@
                 <a class="nav-main-link" href="/produtos">
                 <i class="nav-main-link-icon fa fa-toolbox"></i>
                 <span class="nav-main-link-name">Produtos
+                </span>
+                </a>
+            </li>
+            <li class="nav-main-item">
+                <a class="nav-main-link" href="/setores">
+                <i class="nav-main-link-icon fa fa-toolbox"></i>
+                <span class="nav-main-link-name">Setores
                 </span>
                 </a>
             </li>
@@ -189,11 +196,11 @@
 
                 </ul>
               </li>
-              <li class="nav-main-item">
+              {{-- <li class="nav-main-item">
                 <a class="nav-main-link" href="/itinerarios">
                   <span class="nav-main-link-name">Itinerários</span>
                 </a>
-              </li>
+              </li> --}}
 
 
                 </ul>

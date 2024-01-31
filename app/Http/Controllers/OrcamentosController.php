@@ -22,7 +22,7 @@ class OrcamentosController extends Controller
     {
         //
         $user = Auth::user();
-        $orcamentos = Orcamentos::all();
+        $orcamentos = Orcamentos::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.orcamento.app_listar_orcamento', compact('user', 'orcamentos'));
     }
@@ -45,21 +45,11 @@ class OrcamentosController extends Controller
 {
     $user = Auth::user();
 
-    // // Verifique se há um cliente correspondente ao usuário autenticado
-    // $cliente = Clientes::find($user->id);
-
-    // if (!$cliente) {
-    //     // Se não houver cliente correspondente, você pode tratar isso de acordo com a lógica do seu aplicativo
-    //     // Por exemplo, lançar uma exceção, redirecionar para uma página de erro, etc.
-    //     // Aqui, eu estou lançando uma exceção como exemplo:
-    //     throw new \Exception('Cliente não encontrado para o usuário autenticado.');
-    // }
-
     $orcamento = new Orcamentos;
     $orcamento->cliente_id = $request->cliente_id;
     $orcamento->nome_campanha = $request->nome_campanha;
+    $orcamento->descricao = $request->descricao;
     $orcamento->save();
-
 
 
     $venda = new Vendas();
@@ -130,6 +120,7 @@ class OrcamentosController extends Controller
         $orcamento = Orcamentos::find($id);
         $orcamento->cliente_id = $request->cliente_id;
         $orcamento->nome_campanha = $request->nome_campanha;
+        $orcamento->descricao = $request->descricao;
 
         $orcamento->save();
 
@@ -160,5 +151,47 @@ class OrcamentosController extends Controller
         $log->descricao = $descricao;
         $log->usuario_id = $user_id;
         $log->save();
+    }
+
+    public function imprimir_orcamento(Request $request)
+    {
+        $id = $request->orcamento_id;
+
+        $orcamento = Orcamentos::find($id);
+        $venda = Vendas::where('orcamento_id', $id)->first();
+        $cliente = Clientes::find($orcamento->cliente_id);
+        $produtos = Produtos::all();
+        $itens_vendas = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->get();
+
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+                    ->join('produtos','produtos.id','itens_vendas.produto_id')
+                    ->select('itens_vendas.*','produtos.nome')
+                    ->sum('itens_vendas.valor');
+
+        // Calcula o valor total diretamente no banco de dados
+        $valor_total = ItensVendas::where('venda_id', $venda->id)
+        ->join('produtos','produtos.id','itens_vendas.produto_id')
+        ->select('itens_vendas.*','produtos.nome')
+        ->sum('itens_vendas.valor');
+
+        // Calcula outros totais
+        $custo_colagem_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_colagem_produto');
+
+        $custo_linha_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_linha_onibus');
+
+        // Passa os totais para a view
+        $total_geral = $valor_total + $custo_colagem_total + $custo_linha_total;
+
+        return view('conteudos.orcamento.app_imprimir_orcamento', compact('venda','produtos','id'
+                ,'cliente','orcamento','itens_vendas','valor_total', 'custo_colagem_total', 'custo_linha_total','total_geral'));
     }
 }

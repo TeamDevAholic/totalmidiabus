@@ -53,7 +53,7 @@
                     </div>
                         <div class="mb-4 col-8 inline-block cep">
                         <label class="form-label" for="dm-ecom-product-name">Descrição</label>
-                       <textarea name="descricao" class="form-control" id="descricao" cols="10" rows="5" style="resize: none;"></textarea>
+                       <textarea name="descricao" class="form-control" id="descricao" cols="10" rows="5" style="resize: none;" required></textarea>
                     </div>
 
                     <div class="mb-4">

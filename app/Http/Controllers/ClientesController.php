@@ -18,9 +18,7 @@ class ClientesController extends Controller
         //
         $user = Auth::user();
 
-        $clientes = Clientes::
-                    where('criado_por', $user->id)
-                    ->get();
+        $clientes = Clientes::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.clientes.app_clientes', compact('user','clientes'));
     }
@@ -42,11 +40,9 @@ class ClientesController extends Controller
         $cliente = new Clientes;
         $cliente->nome = $request->nome;
         $cliente->data_nascimento = $request->data_nascimento;
-        $cliente->cpf = $request->cpf;
-        $cliente->rg = $request->rg;
+        $cliente->cnpj = $request->cnpj;
         $cliente->email = $request->email;
         $cliente->whatsapp = $request->whatsapp;
-        $cliente->genero = $request->genero;
         $cliente->cep = $request->cep;
         $cliente->rua = $request->rua;
         $cliente->bairro = $request->bairro;

@@ -15,7 +15,7 @@ class EmpresasController extends Controller
 {
     public function index()
     {
-        $empresas = Empresas::all();
+        $empresas = Empresas::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.garagem.empresas.app_listar_empresas', compact('empresas'));
     }
@@ -37,7 +37,7 @@ class EmpresasController extends Controller
         if ($request->logomarca) {
             $logomarca = $request->logomarca;
             $extensaoI =  $logomarca->getClientOriginalExtension();
-            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'webp') {
                 return back()->with('erro', 'Erro: foto inválida');
             }
         }
@@ -85,7 +85,7 @@ class EmpresasController extends Controller
         if ($request->logomarca) {
             $logomarca = $request->logomarca;
             $extensaoI =  $logomarca->getClientOriginalExtension();
-            if ($extensaoI!= 'jpg' && $extensaoI!= 'png') {
+            if ($extensaoI!= 'jpg' && $extensaoI!= 'png' && $extensaoI!= 'webp') {
                 return back()->with('erro', 'Erro: foto inválida');
             }
         }

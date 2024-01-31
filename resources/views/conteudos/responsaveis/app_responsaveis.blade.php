@@ -28,16 +28,23 @@
         <div class="content">
             @if ($responsaveis->isNotEmpty())
             <a style="margin-bottom: 10px;" href="/registar_responsavel" class="btn btn-info"><i class="fa fa-plus"></i> Cadastrar agora</a>
+            <a style="margin-bottom: 10px;" href="/responsaveis" class="btn btn-danger"> Remover Filtro</a>
+            <div class="mb-4 col-5 inline-block complemento">
+                <label class="form-label" for="setor">Filtrar Responsáveis Por Setor</label>
+                <select class="form-control" name="setor" id="responsavel">
+                    <option value=""></option>
+                    @foreach ($setores as $item)
+                        <option value="{{$item->id}}">{{$item->nome}}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="col-md-12">
                 <div class="block block-themed">
                   <div class="block-header bg-gd-sun">
-                    <h3 class="block-title">Listagem de todos os responsaveis</h3>
-
+                    <h3 class="block-title">Listagem de todos os responsáveis</h3>
                   </div>
                     <div class="block-content">
-
-
                         <table class="table table-striped table-vcenter">
                             <thead>
                                 <tr>
@@ -46,7 +53,6 @@
                                     <th>E-mail</th>
                                     <th>WhatsApp</th>
                                     <th>Celular</th>
-                                    <th>Setor</th>
                                     <th class="text-center" style="width: 100px;">Ação</th>
                                 </tr>
                             </thead>
@@ -60,7 +66,6 @@
                                     <td>{{$item->email}}</td>
                                     <td>{{$item->whatsapp}}</td>
                                     <td>{{$item->celular}}</td>
-                                    <td>{{$item->setor}}</td>
 
                                     <td class="text-center">
                                         <div class="btn-group">
@@ -107,6 +112,23 @@
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Adiciona um ouvinte de evento para detectar mudanças no elemento select
+        $('#responsavel').on('change', function() {
+            // Obtém o valor selecionado
+            var setorId = $(this).val();
+
+            // Se um setor foi selecionado, redireciona para a URL com o filtro
+            if (setorId) {
+                // Substitua 'URL_DO_FILTRO' pela URL real com o filtro de responsáveis por setor
+                var url = 'filtrar_responsaveis_por_setor/' + setorId;
+                window.location.href = url;
+            }
+        });
+    });
 </script>
 
 @endsection

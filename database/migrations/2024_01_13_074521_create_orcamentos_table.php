@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('cliente_id')->unsigned();
             $table->string('nome_campanha', 100)->nullable();
+            $table->text('descricao', 100)->nullable();
 
             $table->timestamps();
             $table->foreign('cliente_id')

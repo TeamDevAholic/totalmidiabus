@@ -16,7 +16,7 @@ class IntinerariosController extends Controller
 {
     public function index()
     {
-        $itinerarios = Intinerarios::all();
+        $itinerarios = Intinerarios::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.garagem.itinerarios.app_itinerarios', compact('itinerarios'));
     }

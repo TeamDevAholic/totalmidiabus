@@ -20,7 +20,7 @@ class VendasController extends Controller
 {
     public function index()
     {
-        $vendas = Vendas::all();
+        $vendas = Vendas::orderBy('created_at', 'desc')->get();
 
         return view('conteudos.vendas.app_vendas', compact('vendas'));
     }
@@ -77,13 +77,29 @@ class VendasController extends Controller
                     ->select('itens_vendas.*','produtos.nome')
                     ->get();
 
+        // Cálculos
+
+
+        // Calcula o valor total diretamente no banco de dados
         $valor_total = ItensVendas::where('venda_id', $venda->id)
-                    ->join('produtos','produtos.id','itens_vendas.produto_id')
-                    ->select('itens_vendas.*','produtos.nome')
-                    ->sum('itens_vendas.valor');
+        ->join('produtos','produtos.id','itens_vendas.produto_id')
+        ->select('itens_vendas.*','produtos.nome')
+        ->sum('itens_vendas.valor');
+
+        // Calcula outros totais
+        $custo_colagem_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_colagem_produto');
+
+        $custo_linha_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_linha_onibus');
+
 
         return view('conteudos.vendas.app_registar_vendapi1', compact('venda','produtos','id'
-        ,'cliente','orcamento','itens_vendas','valor_total'));
+        ,'cliente','orcamento','itens_vendas','valor_total','custo_colagem_total','custo_linha_total'));
 
     }
     public function createpi2($id){
@@ -96,13 +112,29 @@ class VendasController extends Controller
                     ->select('itens_vendas.*','produtos.nome')
                     ->get();
 
+        // Cálculos
+
+
+        // Calcula o valor total diretamente no banco de dados
         $valor_total = ItensVendas::where('venda_id', $venda->id)
-                    ->join('produtos','produtos.id','itens_vendas.produto_id')
-                    ->select('itens_vendas.*','produtos.nome')
-                    ->sum('itens_vendas.valor');
+        ->join('produtos','produtos.id','itens_vendas.produto_id')
+        ->select('itens_vendas.*','produtos.nome')
+        ->sum('itens_vendas.valor');
+
+        // Calcula outros totais
+        $custo_colagem_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_colagem_produto');
+
+        $custo_linha_total = ItensVendas::where('venda_id', $venda->id)
+                ->join('produtos','produtos.id','itens_vendas.produto_id')
+                ->select('itens_vendas.*','produtos.nome')
+                ->sum('itens_vendas.custo_linha_onibus');
+
 
         return view('conteudos.vendas.app_registar_vendapi2', compact('venda','produtos','id'
-        ,'cliente','orcamento','itens_vendas','valor_total'));
+        ,'cliente','orcamento','itens_vendas','valor_total','custo_colagem_total','custo_linha_total'));
 
     }
     public function createpi3($id){
@@ -195,6 +227,25 @@ class VendasController extends Controller
                             $venda->save();
                         }
 
+
+                // Anexo NF
+
+                if ($request->anexo_nf) {
+                    $anexo_nf = $request->anexo_nf;
+                    $extensaoI =  $anexo_nf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_nf) {
+                            File::move($anexo_nf, public_path().'/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_nf = '/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
         $venda->save();
         Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
@@ -256,6 +307,25 @@ class VendasController extends Controller
                             $venda->save();
                         }
 
+
+            // Anexo NF
+
+            if ($request->anexo_nf) {
+                $anexo_nf = $request->anexo_nf;
+                $extensaoI =  $anexo_nf->getClientOriginalExtension();
+                if ($extensaoI!= 'pdf') {
+                    return back()->with('erro', 'Erro: anexo inválido');
+                }
+            }
+
+            $venda->save();
+
+            if ($request->anexo_nf) {
+                        File::move($anexo_nf, public_path().'/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI);
+                        $venda->anexo_nf = '/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI;
+                        $venda->save();
+                    }
+
         $venda->save();
         Alert::toast('Venda Atualizada Com Sucesso', 'success');
 
@@ -310,6 +380,25 @@ class VendasController extends Controller
                 if ($request->anexo_pdf) {
                             File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
                             $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+
+                // Anexo NF
+
+                if ($request->anexo_nf) {
+                    $anexo_nf = $request->anexo_nf;
+                    $extensaoI =  $anexo_nf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_nf) {
+                            File::move($anexo_nf, public_path().'/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_nf = '/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI;
                             $venda->save();
                         }
 
@@ -369,6 +458,25 @@ class VendasController extends Controller
                 if ($request->anexo_pdf) {
                             File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
                             $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+
+                // Anexo NF
+
+                if ($request->anexo_nf) {
+                    $anexo_nf = $request->anexo_nf;
+                    $extensaoI =  $anexo_nf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_nf) {
+                            File::move($anexo_nf, public_path().'/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_nf = '/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI;
                             $venda->save();
                         }
 
@@ -460,6 +568,25 @@ class VendasController extends Controller
                 if ($request->anexo_pdf) {
                             File::move($anexo_pdf, public_path().'/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI);
                             $venda->anexo_pdf = '/media/anexos/Totalmidia_anexo_pdf_'.$venda->id.'.'.$extensaoI;
+                            $venda->save();
+                        }
+
+
+                // Anexo NF
+
+                if ($request->anexo_nf) {
+                    $anexo_nf = $request->anexo_nf;
+                    $extensaoI =  $anexo_nf->getClientOriginalExtension();
+                    if ($extensaoI!= 'pdf') {
+                        return back()->with('erro', 'Erro: anexo inválido');
+                    }
+                }
+
+                $venda->save();
+
+                if ($request->anexo_nf) {
+                            File::move($anexo_nf, public_path().'/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI);
+                            $venda->anexo_nf = '/media/anexos/Totalmidia_anexo_nf_'.$venda->id.'.'.$extensaoI;
                             $venda->save();
                         }
 

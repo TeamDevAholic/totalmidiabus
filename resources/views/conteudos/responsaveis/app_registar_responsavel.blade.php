@@ -16,7 +16,7 @@
                 <div class="bg-body-light">
                   <div class="content content-full">
                     <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                      <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Novo Cliente</h1>
+                      <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Novo Responsável</h1>
 
                     </div>
                   </div>
@@ -50,7 +50,7 @@
 
                     <div class="mb-4 col-5 inline-block complemento">
                         <label class="form-label" for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{$cliente->preco ?? ''}}">
+                        <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="mb-4 col-5 inline-block complemento">
                         <label class="form-label" for="descricao">Whatsapp</label>
@@ -62,7 +62,11 @@
                     </div>
                     <div class="mb-4 col-5 inline-block complemento">
                         <label class="form-label" for="setor">Setor</label>
-                        <input type="text" name="setor" id="setor" class="form-control">
+                        <select class="form-control" name="setor" required>
+                            @foreach ($setores as $item)
+                                <option value="{{$item->id}}">{{$item->nome}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-4 col-5 inline-block complemento">
                         <label class="form-label" for="data_aniversario">Data de aniversário</label>

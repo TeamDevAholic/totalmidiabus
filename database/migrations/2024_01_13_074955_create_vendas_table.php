@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('qtd_parcelas')->nullable();
             $table->date('inicio_campanha')->nullable();
             $table->string('anexo_pdf', 100)->nullable();
+            $table->string('anexo_nf', 100)->nullable();
             $table->string('numero_nf', 20)->nullable();
             $table->string('valor_bruto', 20)->nullable();
             $table->string('valor_imposto', 20)->nullable();

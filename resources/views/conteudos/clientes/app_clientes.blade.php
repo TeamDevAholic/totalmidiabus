@@ -43,8 +43,7 @@
                                 <tr>
                                     <th class="text-center" style="width: 50px;">#</th>
                                     <th>Nome</th>
-                                    <th>CPF</th>
-                                    <th>RG</th>
+                                    <th>CNPJ</th>
                                     <th>WhatsApp</th>
                                     <th>CEP</th>
                                     <th class="text-center" style="width: 100px;">Ação</th>
@@ -57,9 +56,8 @@
                                     <td class="fw-semibold">
                                         <a href="/visualizar_cliente/{{$item->id}}">{{$item->nome}}</a>
                                     </td>
-                                    <td>{{$item->cpf}}</td>
-                                    <td>{{$item->rg}}</td>
-                                    <td>{{$item->rg}}</td>
+                                    <td>{{$item->cnpj}}</td>
+                                    <td>{{$item->whatsapp}}</td>
                                     <td>{{$item->cep}}</td>
                                     <td class="text-center">
                                         <div class="btn-group">

@@ -13,11 +13,9 @@ class CreateClientesTable extends Migration
             $table->increments('id');
             $table->string('nome', 50);
             $table->date('data_nascimento');
-            $table->string('cpf', 20)->unique();
-            $table->string('rg', 20);
+            $table->string('cnpj', 20)->unique();
             $table->string('email', 50);
             $table->string('whatsapp', 20);
-            $table->string('genero', 20);
             $table->string('cep', 20);
             $table->string('rua', 50);
             $table->string('bairro', 50);
@@ -26,7 +24,7 @@ class CreateClientesTable extends Migration
             $table->string('numero', 50)->nullable();
             $table->string('complemento', 50)->nullable();
             $table->timestamps();
-            
+
             $table->bigInteger('criado_por')->unsigned();
             $table->foreign('criado_por')->references('id')->on('users');
             $table->bigInteger('actualizado_por')->unsigned();

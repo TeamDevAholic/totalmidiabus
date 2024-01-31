@@ -61,6 +61,11 @@
                                 </select>
                                 </div>
 
+                                <div class="mb-4 col-5 inline-block">
+                                    <label class="form-label" for="dm-ecom-product-name">Nome da Campanha</label>
+                                    <textarea name="descricao" class="form-control" id="" cols="30" rows="10" required></textarea>
+                                    </div>
+
                             <div class="mb-4">
                             <button type="submit" class="btn btn-primary">Salvar Orçamento</button>
                             </div>
