@@ -272,8 +272,9 @@ class VendasController extends Controller
         $venda->valor_depositado = $request->valor_depositado;
         $venda->pagamento_colagem = $request->pagamento_colagem;
         $venda->pagamento_garagem = $request->pagamento_garagem;
-        $venda->fluxo = $request->fluxo ?? 'Financeiro';
-        $venda->status = 'Aguardando Faturamento';
+        $venda->fotos_comprovacao = $request->fotos_comprovacao;
+        $venda->fluxo = $request->fluxo ?? 'vendedor';
+        $venda->status = $request->status ?? 'orçamento';
 
 
         if ($request->fotos_comprovacao) {

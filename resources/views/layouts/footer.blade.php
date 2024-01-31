@@ -5,7 +5,7 @@
           Criado com <i class="fa fa-heart text-danger"></i> pela <a class="fw-semibold" href="https://devaholic.ao" target="_blank">DevAholic</a>
         </div>
         <div class="col-sm-6 order-sm-1 text-center text-sm-start">
-          <a class="fw-semibold" href="https://devaholic.ao" target="_blank">Sistema de Gestão de Vendas</a> &copy; <span data-toggle="year-copy"></span>
+          <a class="fw-semibold" href="/home">TOTALMIDIABUS</a> &copy; <span data-toggle="year-copy"></span>
         </div>
       </div>
     </div>

@@ -2,50 +2,126 @@
 
 @section('content')
 
-      <!-- Main Container -->
-      <main id="main-container">
-        <center>
-          @if (session('erro'))
-          {{-- expr --}}
-          <div class="alert alert-danger" role="alert">
+<!-- Main Container -->
+<main id="main-container">
+    <center>
+        @if (session('erro'))
+        {{-- expr --}}
+        <div class="alert alert-danger" role="alert">
             {{session('erro')}}
-          </div>
-          @endif
-        </center>
-                <!-- Hero -->
-                <div class="bg-body-light">
-                  <div class="content content-full">
-                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                      <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Novo Cliente</h1>
+        </div>
+        @endif
+    </center>
+    <!-- Hero -->
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Novo Cliente</h1>
+            </div>
+        </div>
+    </div>
+    <!-- END Hero -->
 
-                    </div>
-                  </div>
-                </div>
-                <!-- END Hero -->
+    <!-- Page Content -->
+    <div class="content">
 
-                <!-- Page Content -->
-                <div class="content">
-
-
-          <!-- Info -->
-          <div class="block block-rounded">
+        <!-- Info -->
+        <div class="block block-rounded">
 
             <div class="block-header block-header-default">
-                <a class="btn  btn-hero btn-primary my-2" href="/clientes" style="margin-right: 10px;">
-                  <i class="fa fa-reply" aria-hidden="true"></i>
-                  <span class="d-sm-inline ms-1"></span>
+                <a class="btn btn-hero btn-primary my-2" href="/clientes" style="margin-right: 10px;">
+                    <i class="fa fa-reply" aria-hidden="true"></i>
+                    <span class="d-sm-inline ms-1"></span>
                 </a>
-              <h3 class="block-title">Registar Novo Cliente</h3>
+                <h3 class="block-title">Registar Novo Cliente</h3>
             </div>
 
             <div class="block-content">
-              <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                  <form action="/salvar_cliente" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4 col-5 inline-block">
-                      <label class="form-label" for="dm-ecom-product-name">Nome do Cliente</label>
-                      <input type="text" class="form-control" id="dm-ecom-product-name" required name="nome" value="">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form action="/salvar_cliente" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-4">
+                                <label class="form-label" for="dm-ecom-product-name">Nome do Cliente</label>
+                                <input type="text" class="form-control" id="dm-ecom-product-name" required name="nome" value="">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="cpf">CPF</label>
+                                <input type="text" class="form-control" id="cpf" required name="cpf" value="{{$cliente->cpf ?? ''}}" maxLength="14" onkeypress="formatarCPF(event)" autocomplete="off" maxlength="14 ">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="dm-ecom-product-name">Data de Nascimento</label>
+                                <input type="date" class="form-control" id="dm-ecom-product-name" required name="data_nascimento" value="{{$cliente->data_nascimento ?? ''}}">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="dm-ecom-product-name">RG</label>
+                                <input type="text" class="form-control" id="dm-ecom-product-name" required name="rg" value="{{$cliente->rg ?? ''}}">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="dm-ecom-product-name">Email</label>
+                                <input type="text" class="form-control" id="dm-ecom-product-name" required name="email" value="{{$cliente->email ?? ''}}">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="dm-ecom-product-name">Whatsapp</label>
+                                <input type="text" class="form-control" id="dm-ecom-product-name" required name="whatsapp" value="{{$cliente->whatsapp ?? ''}}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label" for="genero">Gênero</label>
+                                <select class="form-control" name="genero" id="genero">
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Feminino</option>
+                                    <option value="3">Não Informar</option>
+                                    <option value="4">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4 cep">
+                                <label class="form-label" for="cep">CEP</label>
+                                <input type="text" class="form-control" id="cep" name="cep" value="{{$cliente->cep ?? ''}}" size="10" maxlength="9" onblur="pesquisacep(this.value);" required>
+                            </div>
+
+                            <div class="mb-4 rua">
+                                <label class="form-label" for="rua">Rua</label>
+                                <input type="text" class="form-control" id="rua" name="rua" value="{{$cliente->rua ?? ''}}" required>
+                            </div>
+
+                            <div class="mb-4 Bairro">
+                                <label class="form-label" for="bairro">Bairro</label>
+                                <input type="text" class="form-control" id="bairro" name="bairro" value="{{$cliente->bairro ?? ''}}" required>
+                            </div>
+
+                            <div class="mb-4 Cidade">
+                                <label class="form-label" for="cidade">Cidade</label>
+                                <input type="text" class="form-control" id="cidade" name="cidade" value="{{$cliente->cidade ?? ''}}" required>
+                            </div>
+
+                            <div class="mb-4 estado">
+                                <label class="form-label" for="uf">Estado</label>
+                                <input type="text" class="form-control" id="uf" name="uf" value="{{$cliente->uf ?? ''}}" required>
+                            </div>
+
+                            <div class="mb-4 numero">
+                                <label class="form-label" for="numero">Número</label>
+                                <input type="text" class="form-control" id="numero" name="numero" value="{{$cliente->numero ?? ''}}">
+                            </div>
+
+                            <div class="mb-4 complemento">
+                                <label class="form-label" for="complemento">Complemento</label>
+                                <input type="text" class="form-control" id="complemento" name="complemento" value="{{$cliente->complemento ?? ''}}">
+                            </div>
+
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+                            </div>
+                        </form>
                     </div>
                     <div class="mb-4 col-5 inline-block">
                         <label class="form-label" for="cnpj">CNPJ</label>
@@ -103,12 +179,9 @@
                     </div>
                   </form>
                 </div>
-              </div>
             </div>
-          </div>
-          <!-- END Info -->
-
-
+        </div>
+    </div>
 
 
 <script>

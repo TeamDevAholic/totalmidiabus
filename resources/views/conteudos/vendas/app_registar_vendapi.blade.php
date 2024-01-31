@@ -171,6 +171,7 @@
                 <div class="block-content">
                   <div class="row justify-content-center">
                     <div class="col-md-12 col-lg-12">
+                        
                       <form action="/salvar_vendapi" method="POST" enctype="multipart/form-data">
 
                         @csrf

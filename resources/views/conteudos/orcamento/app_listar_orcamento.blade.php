@@ -60,7 +60,7 @@
                                             <a href="/visualizar_orcamento/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar cliente" onclick="confirmarApagar({{$item->id}})">
+                                            <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Apagar orçamento" onclick="confirmarApagar({{$item->id}})">
                                                 <i class="fa fa-times"></i>
                                             </button>
                                         </div>
@@ -85,7 +85,7 @@
       </main>
 <!-- Adicione o seguinte script para definir a função confirmarApagar -->
 <script>
-    function confirmarApagar(clienteId) {
+    function confirmarApagar(orcamentoId) {
         Swal.fire({
             title: 'Confirmar Ação',
             text: 'Tem certeza de que deseja apagar este orçamento?',
@@ -96,7 +96,7 @@
             confirmButtonText: 'Sim, Apagar!'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminar_orcamento/" + clienteId;
+                window.location.href = "/eliminar_orcamento/" + orcamentoId;
             }
         });
     }
