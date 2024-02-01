@@ -132,7 +132,7 @@
                     </td>
 
                       <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->valor}}</strong>
+                        <strong>R$ {{$item->valor}},00</strong>
                       </td>
                       <td class="d-none d-sm-table-cell text-end">
                         <strong>{{$item->custo_colagem_produto}}</strong>
@@ -156,7 +156,7 @@
 
                     <tr>
                         <td colspan="4" class="fw-bold text-uppercase text-end bg-body-light">Valor Total</td>
-                        <td class="fw-bold text-end bg-body-light"> {{$valor_total}} </td>
+                        <td class="fw-bold text-end bg-body-light"> R$ {{$valor_total}},00 </td>
                     </tr>
 
                   </tbody>

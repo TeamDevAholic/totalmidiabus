@@ -72,7 +72,8 @@
             </div>
             <div class="col-6 col-md-4">
               <div class="fw-semibold text-dark mb-1">Data de  Criação</div>
-              <a class="link-fx fs-3" href="javascript:void(0)">{{$orcamento->created_at ?? ''}}</a>
+              <span>{{ \Carbon\Carbon::parse($orcamento->created_at)->format('d-m-Y') }}</span>
+
             </div>
 
 

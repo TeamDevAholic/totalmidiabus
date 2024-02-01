@@ -74,7 +74,15 @@
 
     </div>
     <center>
-        <p>Descrição:  {{$orcamento->descricao}} </p>
+
+        <div class="mb-4 col-5 inline-block">
+            <label class="form-label" for="dm-ecom-product-name">Descrição da Campanha</label>
+            <textarea name="descricao"  value="{{$orcamento->descricao}}" class="form-control" id="" cols="30" rows="10" required>{{$orcamento->descricao}}</textarea>
+            </div>
+            <button type="submit" class="btn btn-md btn-primary">Salvar</button>
+            <br><br>
+        </div>
+
     </center>
   </div>
 
@@ -163,7 +171,7 @@
 
                     <tr>
                         <td colspan="4" class="fw-bold text-uppercase text-end bg-body-light">Valor Total</td>
-                        <td class="fw-bold text-end bg-body-light"> {{$valor_total}} </td>
+                        <td class="fw-bold text-end bg-body-light">R$ {{$valor_total}},00</td>
                     </tr>
 
                   </tbody>
@@ -341,13 +349,17 @@
                         <p>{{ $item->qtd_produto }}</p>
 
                         <h6>Data de Início</h6>
-                        <p>{{ $item->data_inicio }}</p>
+
+                        <p>
+                        <span>{{ \Carbon\Carbon::parse($item->data_inicio)->format('d-m-Y') }}</span>
+                    </p>
 
                         <h6>Data Final</h6>
-                        <p>{{ $item->data_final }}</p>
+                        <p>     <span>{{ \Carbon\Carbon::parse($item->data_final)->format('d-m-Y') }}</span></p>
 
                         <h6>Valor</h6>
-                        <p>{{ $item->valor }}</p>
+
+                        <p>R${{ $item->valor }},00</p>
 
                         <h6>Custo de Colagem</h6>
                         <p>{{ $item->custo_colagem_produto }}</p>

@@ -60,7 +60,7 @@
                                     <td>{{$item->numero_pi}}</td>
                                     <td>{{$item->qtd_parcelas}}</td>
                                     <td>{{$item->numero_nf}}</td>
-                                    <td>{{$item->valor_bruto}}</td>
+                                    <td>R$ {{$item->valor_bruto}},00</td>
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <a href="/visualizar_venda/{{$item->id}}" class="btn btn-sm btn-alt-secondary" data-bs-toggle="tooltip" title="Ver">

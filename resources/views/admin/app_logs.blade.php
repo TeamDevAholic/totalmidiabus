@@ -37,7 +37,7 @@
         <tr>
             @foreach ($logs as $log)
             <td>{{$log->descricao}}</td>
-            <td>{{$log->created_at}}</td>
+            <td> <span>{{ \Carbon\Carbon::parse($log->created_at)->format('d-m-Y H:i:s') }}</span></td>
         </tr>
         @endforeach
         <!-- Adicione mais linhas de registro aqui -->

@@ -43,6 +43,7 @@
                         Campanha: {{$orcamento->nome_campanha}}
                       </p>
 
+
                   </div>
                   <!-- END Company Info -->
 
@@ -112,6 +113,11 @@
                   Relatório do Orçamento
                 </p>
                 <!-- END Footer -->
+
+                <p class="text-muted mb-2">
+                    <h4>Descrição do Orçamento</h4>
+                    Descrisão: {{$orcamento->descricao}}
+                  </p>
               </div>
             </div>
             <img src="/media/photos/img2.jpg" alt="" style="width: 100%;">

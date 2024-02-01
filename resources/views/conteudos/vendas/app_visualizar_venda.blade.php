@@ -85,15 +85,15 @@
 
           <hr>
           <strong>Valor bruto</strong>
-            <p>{{ $venda->valor_bruto }}</p>
+            <p>R${{ $venda->valor_bruto }},00</p>
 
           <hr>
           <strong>Valor do imposto</strong>
-            <p>{{ $venda->valor_imposto }}</p>
+            <p>R${{ $venda->valor_imposto }},00</p>
 
           <hr>
           <strong>Valor depositado</strong>
-            <p>{{ $venda->valor_depositado }}</p>
+            <p>R$ {{ $venda->valor_depositado }},00</p>
 
           <hr>
           <strong>Pagamento da colagem</strong>
