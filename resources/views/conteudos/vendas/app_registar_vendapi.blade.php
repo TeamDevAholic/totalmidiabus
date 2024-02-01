@@ -132,7 +132,7 @@
                     </td>
 
                       <td class="d-none d-sm-table-cell text-end">
-                        <strong>R$ {{$item_total}},00</strong>
+                        <strong>R$ {{$valor_total}},00</strong>
                       </td>
                       <td class="d-none d-sm-table-cell text-end">
                         <strong>R${{$item->custo_colagem_produto}},00</strong>
@@ -403,7 +403,7 @@
                         <p>{{ $item->data_final }}</p>
 
                         <h6>Valor</h6>
-                        <p>R$ {{$item_total}},00</p>
+                        <p>R$ {{$valor_total}},00</p>
 
                         <h6>Custo de Colagem</h6>
                         <p>R$ {{ $item->custo_colagem_produto }},00</p>
