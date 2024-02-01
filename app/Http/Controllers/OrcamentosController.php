@@ -153,6 +153,20 @@ class OrcamentosController extends Controller
         $log->save();
     }
 
+    public function atualizarDescricaoOrcamento(Request $request, $id)
+{
+    // Valide os dados, se necessário
+
+        // Atualize o campo descricao no banco de dados
+        $orcamento = Orcamentos::find($id);
+        $orcamento->descricao = $request->input('nova_descricao');
+        $orcamento->save();
+
+        // Redirecione de volta ou faça qualquer outra ação necessária
+        Alert::toast('Descrição Orçamento atualizada com sucesso', 'success');
+        return redirect()->back();
+}
+
     public function imprimir_orcamento(Request $request)
     {
         $id = $request->orcamento_id;
@@ -194,4 +208,5 @@ class OrcamentosController extends Controller
         return view('conteudos.orcamento.app_imprimir_orcamento', compact('venda','produtos','id'
                 ,'cliente','orcamento','itens_vendas','valor_total', 'custo_colagem_total', 'custo_linha_total','total_geral'));
     }
+
 }

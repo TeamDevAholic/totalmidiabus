@@ -132,13 +132,13 @@
                     </td>
 
                       <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->valor}}</strong>
+                        <strong>R$ {{$item_total}},00</strong>
                       </td>
                       <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->custo_colagem_produto}}</strong>
+                        <strong>R${{$item->custo_colagem_produto}},00</strong>
                       </td>
                       <td class="d-none d-sm-table-cell text-end">
-                        <strong>{{$item->custo_linha_onibus}}</strong>
+                        <strong>R${{$item->custo_linha_onibus}},00</strong>
                       </td>
                       <td class="text-center fs-base">
                         <a class="btn btn-sm btn-alt-secondary" data-toggle="modal" data-target="#modalShowItem{{$item->id}}">
@@ -156,7 +156,7 @@
 
                     <tr>
                         <td colspan="4" class="fw-bold text-uppercase text-end bg-body-light">Valor Total</td>
-                        <td class="fw-bold text-end bg-body-light"> {{$valor_total}} </td>
+                        <td class="fw-bold text-end bg-body-light"> R$ {{$valor_total}},00 </td>
                     </tr>
 
                   </tbody>
@@ -171,7 +171,7 @@
                 <div class="block-content">
                   <div class="row justify-content-center">
                     <div class="col-md-12 col-lg-12">
-                        
+
                       <form action="/salvar_vendapi" method="POST" enctype="multipart/form-data">
 
                         @csrf
@@ -403,13 +403,13 @@
                         <p>{{ $item->data_final }}</p>
 
                         <h6>Valor</h6>
-                        <p>{{ $item->valor }}</p>
+                        <p>R$ {{$item_total}},00</p>
 
                         <h6>Custo de Colagem</h6>
-                        <p>{{ $item->custo_colagem_produto }}</p>
+                        <p>R$ {{ $item->custo_colagem_produto }},00</p>
 
                         <h6>Custo de Linha</h6>
-                        <p>{{ $item->custo_linha_onibus }}</p>
+                        <p>R$ {{ $item->custo_linha_onibus }},00</p>
 
                         <br>
                     </div>

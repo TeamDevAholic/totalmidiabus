@@ -156,6 +156,8 @@ Route::get('/eliminar_orcamento/{id}', 'App\Http\Controllers\OrcamentosControlle
 Route::post('/actualizar_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@update')->middleware('auth');
 Route::post('/salvar_orcamento', 'App\Http\Controllers\OrcamentosController@store')->middleware('auth');
 Route::post('/imprimir_orcamento', 'App\Http\Controllers\OrcamentosController@imprimir_orcamento')->middleware('auth');
+Route::post('/atualizar_descricao_orcamento/{id}', 'App\Http\Controllers\OrcamentosController@atualizarDescricaoOrcamento')->name('atualizar.descricao.orcamento');
+
 
 // ========================= EMPRESAS ========================
 
