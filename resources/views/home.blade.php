@@ -75,7 +75,8 @@
                       <a class="fw-semibold" href="/visualizar_orcamento/{{$item->id}}"> {{$item->nome_campanha}} </a>
                     </td>
                     <td>
-                      <a class="fw-medium"> {{$item->created_at}}</a>
+                      <a class="fw-medium">  <span>{{ \Carbon\Carbon::parse($item->data_final)->format('d-m-Y H:i') }}</span>
+                      </a>
                     </td>
                   </tr>
                   @endforeach
